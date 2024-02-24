@@ -3,6 +3,7 @@
   color: $dark-blue-text;
   margin-top: -10rem;
   padding-top: 15rem;
+  font-family: 'Sixtyfour', sans-serif;
 
   @include respond(tab-land) {
     margin-top: 0;

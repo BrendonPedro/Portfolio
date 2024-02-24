@@ -10,6 +10,7 @@
   margin-top: -10rem;
   margin-bottom: -1px;
   color: $white-color;
+  font-family: 'Sixtyfour', sans-serif;
 
   @include respond(tab-land) {
     padding: 10rem 0;
