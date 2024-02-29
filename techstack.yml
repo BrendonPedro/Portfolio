@@ -1,13 +1,53 @@
-repo_name: BrendonPedro/Portfolio
-report_id: 2ec6bf33529d5b9ece3a11704fad82eb
+repo_name: BrendonPedro/portfolio
+report_id: 820d1732becce86096aaf6563114c5aa
 version: 0.1
 repo_type: Public
-timestamp: '2024-02-29T19:05:36+00:00'
-requested_by: BrendonPedro
+timestamp: '2024-02-29T19:05:42+00:00'
+requested_by: cobiwave
 provider: github
-branch: main
-detected_tools_count: 1
+branch: master
+detected_tools_count: 9
 tools:
+- name: JavaScript
+  description: Lightweight, interpreted, object-oriented language with first-class
+    functions
+  website_url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/BrendonPedro/portfolio
+  detection_source: Repo Metadata
+- name: Bootstrap
+  description: Simple and flexible HTML, CSS, and JS for popular UI components and
+    interactions
+  website_url: http://getbootstrap.com/
+  version: 5.2.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Front-End Frameworks
+  image_url: https://img.stackshare.io/service/1101/C9QJ7V3X.png
+  detection_source_url: https://github.com/BrendonPedro/portfolio/blob/master/package-lock.json
+  detection_source: package.json
+  last_updated_by: Jacobo Martinez
+  last_updated_on: 2022-12-24 01:41:49.000000000 Z
+- name: jQuery
+  description: The Write Less, Do More, JavaScript Library.
+  website_url: http://jquery.com/
+  version: 3.6.3
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Javascript UI Libraries
+  image_url: https://img.stackshare.io/service/1021/lxEKmMnB_400x400.jpg
+  detection_source_url: https://github.com/BrendonPedro/portfolio/blob/master/package-lock.json
+  detection_source: package.json
+  last_updated_by: Jacobo Martinez
+  last_updated_on: 2022-12-24 01:41:49.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -16,5 +56,71 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
-  detection_source_url: https://github.com/BrendonPedro/Portfolio
+  detection_source_url: https://github.com/BrendonPedro/portfolio
   detection_source: Repo Metadata
+- name: GitHub Actions
+  description: Automate your workflow from idea to production
+  website_url: https://github.com/features/actions
+  open_source: false
+  hosted_saas: true
+  category: Build, Test, Deploy
+  sub_category: Continuous Integration
+  image_url: https://img.stackshare.io/service/11563/actions.png
+  detection_source_url: https://github.com/BrendonPedro/portfolio/blob/master/.github/workflows/gh-pages.yml
+  detection_source: ".github/workflows/gh-pages.yml"
+  last_updated_by: Jens Du Four
+  last_updated_on: 2020-11-09 14:36:47.000000000 Z
+- name: Parcel
+  description: "\U0001F4E6\U0001F680  A fast, zero configuration web application bundler"
+  website_url: https://parceljs.org/
+  version: 2.8.2
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: JS Build Tools / JS Task Runners
+  image_url: https://img.stackshare.io/service/8054/fC6Wad-S_400x400.jpg
+  detection_source_url: https://github.com/BrendonPedro/portfolio/blob/master/package-lock.json
+  detection_source: package.json
+  last_updated_by: Jacobo Martinez
+  last_updated_on: 2022-12-24 01:41:49.000000000 Z
+- name: Prettier
+  description: Prettier is an opinionated code formatter.
+  website_url: https://prettier.io/
+  version: 2.8.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Code Review
+  image_url: https://img.stackshare.io/service/7035/default_66f265943abed56bcdbfca1c866a4261b1fbb063.jpg
+  detection_source_url: https://github.com/BrendonPedro/portfolio/blob/master/package-lock.json
+  detection_source: package.json
+  last_updated_by: Jacobo Martinez
+  last_updated_on: 2022-12-24 01:41:49.000000000 Z
+- name: npm
+  description: The package manager for JavaScript.
+  website_url: https://www.npmjs.com/
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Front End Package Manager
+  image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/BrendonPedro/portfolio/blob/master/package.json
+  detection_source: package.json
+  last_updated_by: Jacobo Martinez
+  last_updated_on: 2019-07-01 00:37:12.000000000 Z
+- name: popper.js
+  description: A kickass library to manage your poppers
+  package_url: https://www.npmjs.com/popper.js
+  version: 1.16.1
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: npm Packages
+  image_url: https://img.stackshare.io/package/16357/default_c47f6a56d74fae4d4404d77067b2fa35da6f1924.png
+  detection_source_url: https://github.com/BrendonPedro/portfolio/blob/master/package-lock.json
+  detection_source: package.json
+  last_updated_by: Jacobo Martinez
+  last_updated_on: 2022-12-24 01:41:49.000000000 Z
