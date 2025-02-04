@@ -6,47 +6,68 @@ initScrollReveal(targetElements, defaultProps);
 initTiltEffect();
 
 const heroTitle = document.querySelector('.hero-title');
-const staticText = heroTitle.innerHTML; // Get the existing HTML
-const phrases = [
-  "Have you heard the joke about the bed? ⚆_⚆ ",
-  "I didn't make it up yet😅! ",
-    "I'm a developer, not a jokesmith... lol.",
+const staticText = heroTitle.innerHTML;
+
+// Object containing setup and punchline pairs
+const jokes = [
+  {
+    setup: "Have you heard the joke about the bed? ⚆_⚆ ",
+    punchline: "I didn't make it up yet😅! "
+  },
+  {
+    setup: "Did you hear the joke about the ball? ⚆_⚆ ",
+    punchline: "You won't catch it 😁"
+  },
+  {
+    setup: "Did you hear the joke about the pencil? ⚆_⚆ ",
+    punchline: "It has no point 😅"
+  }
 ];
+
+// Get today's joke based on the date
+function getTodaysJoke() {
+  const today = new Date();
+  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+  return jokes[dayOfYear % jokes.length];
+}
+
+const todaysJoke = getTodaysJoke();
+const phrases = [
+  todaysJoke.setup,
+  todaysJoke.punchline,
+  "I'm a developer, not a jokesmith... lol."
+];
+
 const finalLine = "Let's build something cool together! ^_^"
 
 let phraseIndex = 0;
-let charIndex = 0; // Start from the beginning of the first phrase
-let isTyping = true; // Start with typing effect
+let charIndex = 0;
+let isTyping = true;
 
 function typewriteEffect() {
   if (phraseIndex < phrases.length) {
     if (isTyping) {
-      // Typing
       if (charIndex < phrases[phraseIndex].length) {
         heroTitle.innerHTML = staticText + '<span class="dynamic-text">' + phrases[phraseIndex].substring(0, charIndex + 1);
         charIndex++;
-        setTimeout(typewriteEffect, 75); // Typing speed
+        setTimeout(typewriteEffect, 75);
       } else {
-        // Once finished typing a phrase, start untyping after a short delay
         isTyping = false;
-        setTimeout(typewriteEffect, 1500); // Delay before untyping
+        setTimeout(typewriteEffect, 1500);
       }
     } else {
-      // Untyping
       if (charIndex > 0) {
         charIndex--;
         heroTitle.innerHTML = staticText + '<span class="dynamic-text">' + phrases[phraseIndex].substring(0, charIndex);
-        setTimeout(typewriteEffect, 20); // Untyping speed (5 times faster)
+        setTimeout(typewriteEffect, 20);
       } else {
-        // Once finished untyping, move to the next phrase or the final line
         phraseIndex++;
         if (phraseIndex < phrases.length) {
           isTyping = true;
-          setTimeout(typewriteEffect, 500); // Delay before typing next phrase
+          setTimeout(typewriteEffect, 500);
         } else {
-          // Start typing the final line
-          charIndex = 0; // Reset for finalLine
-          setTimeout(typeFinalLine, 500); // Delay before starting finalLine
+          charIndex = 0;
+          setTimeout(typeFinalLine, 500);
         }
       }
     }
@@ -55,11 +76,10 @@ function typewriteEffect() {
 
 function typeFinalLine() {
   if (charIndex < finalLine.length) {
-    heroTitle.innerHTML = staticText + '<span class="final-line">' + finalLine.substring(0, charIndex + 1) + '</span>'; // Use the new class
+    heroTitle.innerHTML = staticText + '<span class="final-line">' + finalLine.substring(0, charIndex + 1) + '</span>';
     charIndex++;
-    setTimeout(typeFinalLine, 100); 
+    setTimeout(typeFinalLine, 100);
   }
-  // No need to call setTimeout here again, it stops after finalLine is complete
 }
 
 // Initial call
