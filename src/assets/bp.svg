@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" width="500" height="300">
+  <!-- B - main vertical stroke with improved line quality -->
+  <path d="M100 70 C100 120, 100 170, 100 230" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="8" 
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+  
+  <!-- B - top and bottom loops with better curves -->
+  <path d="M100 70 C140 60, 180 70, 190 100 C200 130, 170 155, 130 155 C150 155, 190 165, 190 195 C190 225, 150 240, 100 230" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="8" 
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+  
+  <!-- P - overlaying the B, with improved position -->
+  <path d="M130 80 C130 120, 130 160, 140 230" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="8" 
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+  
+  <!-- P - loop with smoother curves -->
+  <path d="M130 80 C170 70, 210 80, 220 110 C230 140, 200 165, 160 160 C145 155, 130 155, 130 155" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="8" 
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+  
+  <!-- Flowing connection to "edro" with better flow -->
+  <path d="M150 200 C170 210, 190 200, 210 190 C240 180, 260 185, 255 205 C250 225, 235 225, 240 205 C245 185, 265 180, 285 185 C300 190, 300 205, 285 215 C270 225, 260 215, 270 195 C280 175, 300 170, 320 180 C335 190, 330 210, 315 215 C300 220, 290 210, 300 195 C310 180, 330 180, 345 195" 
+        fill="none" 
+        stroke="black" 
+        stroke-width="6" 
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+</svg>
