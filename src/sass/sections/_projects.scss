@@ -47,6 +47,12 @@
       & p > a {
         color: darken($primary-color, 15%);
       }
+
+      .project-wrapper__stack {
+        font-size: 1.15rem;
+        color: lighten($ink-color, 30%);
+        letter-spacing: 0.02em;
+      }
     }
 
     &__image {
