@@ -25,7 +25,7 @@ const DEADLY = new Set(["S", "F"]);
 const LOOT_TILES = {
   H: "thesis",
   P: "pbc",
-  G: "robo",
+  G: "cemta",
   J: "jokes",
   B: "slang",
   N: "nycu",
@@ -35,7 +35,7 @@ const LOOT_TILES = {
 const LOOT_NAMES = {
   thesis: "\u{1F4DC} SECRET THESIS FOUND! (password protected, obviously)",
   pbc: "\u{1F437} PBC UNLOCKED! AI & Engineering Lead — builder of Cortex",
-  robo: "\u{1F916} ROBOFRIENDS CARTRIDGE COLLECTED!",
+  cemta: "\u{1F35C} CEMTA CARTRIDGE COLLECTED! Menus, translated",
   jokes: "\u{1F602} JOKE GENERATOR 3000 CARTRIDGE COLLECTED!",
   slang: "\u{1F4AC} SLANG TRANSLATOR CARTRIDGE COLLECTED! Aweh!",
   nycu: "\u{1F393} NYCU STUDENT CARD FOUND! M.S. EECS, expected 2028",
@@ -127,7 +127,7 @@ const LEVELS = [
       put(11, 4, 5, "C");
       put(10, 6, 8, "=");
       put(8, 9, 11, "=");
-      put(7, 10, 10, "G"); // RoboFriends cartridge
+      put(7, 10, 10, "G"); // CEMTA cartridge
       put(9, 13, 13, "C"); // over pit one
       put(10, 17, 18, "=");
       put(8, 20, 22, "=");
@@ -324,6 +324,55 @@ const audio = {
   win() {
     this.tune([523, 659, 784, 1047, 784, 1047, 1319, 1568], 0.12);
   },
+
+  // ---- background music: a looping Am–F–C–G chiptune, sequenced live ------
+  MUSIC_STEP: 0.145, // seconds per 8th note (~103 BPM)
+  MELODY: [
+    440, 523, 659, 523, 440, 523, 659, 784, // Am
+    349, 440, 523, 440, 349, 440, 523, 659, // F
+    523, 659, 784, 659, 523, 659, 784, 988, // C
+    392, 494, 587, 494, 392, 494, 587, 698, // G
+  ],
+  BASS: [
+    110, 0, 110, 0, 110, 0, 110, 0, // A2
+    87.31, 0, 87.31, 0, 87.31, 0, 87.31, 0, // F2
+    130.81, 0, 130.81, 0, 130.81, 0, 130.81, 0, // C3
+    98, 0, 98, 0, 98, 0, 98, 0, // G2
+  ],
+  musicTimer: null,
+  musicStep: 0,
+  musicNextTime: 0,
+  note(freq, when, dur, type, vol) {
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, when);
+    gain.gain.setValueAtTime(vol, when);
+    gain.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+    osc.connect(gain).connect(this.ctx.destination);
+    osc.start(when);
+    osc.stop(when + dur + 0.02);
+  },
+  startMusic() {
+    if (this.musicTimer || !this.ensure()) return;
+    this.musicNextTime = this.ctx.currentTime + 0.1;
+    this.musicTimer = setInterval(() => {
+      // schedule a little ahead so the loop survives timer jitter
+      while (this.musicNextTime < this.ctx.currentTime + 0.18) {
+        const i = this.musicStep % this.MELODY.length;
+        if (!this.muted) {
+          if (this.MELODY[i]) this.note(this.MELODY[i], this.musicNextTime, this.MUSIC_STEP * 0.85, "square", 0.022);
+          if (this.BASS[i]) this.note(this.BASS[i], this.musicNextTime, this.MUSIC_STEP * 1.7, "triangle", 0.05);
+        }
+        this.musicNextTime += this.MUSIC_STEP;
+        this.musicStep++;
+      }
+    }, 60);
+  },
+  stopMusic() {
+    clearInterval(this.musicTimer);
+    this.musicTimer = null;
+  },
 };
 
 // ---- DOM handles -----------------------------------------------------------
@@ -453,11 +502,13 @@ function startGame() {
   game.deaths = 0;
   game.floppyTotal = countFloppies();
   loadLevel(0);
+  audio.startMusic();
   canvas.focus();
 }
 
 function winGame() {
   game.state = "won";
+  audio.stopMusic();
   audio.win();
   const lootCount = Object.keys(game.loot).filter((k) => game.loot[k]).length;
   document.getElementById("win-stats").textContent =
@@ -1007,9 +1058,11 @@ canvas.addEventListener("pointerdown", () => {
 function togglePause() {
   if (game.state === "playing") {
     game.state = "paused";
+    audio.stopMusic();
     showOverlay("pause");
   } else if (game.state === "paused") {
     game.state = "playing";
+    audio.startMusic();
     showOverlay(null);
     canvas.focus();
   }
@@ -1104,4 +1157,4 @@ game.tiles = LEVELS[0].grid.map((r) => r.slice());
 requestAnimationFrame(frame);
 
 // tiny debug hook (also handy if you want to poke around in devtools — hi!)
-window.__bw = { game, loadLevel, LEVELS, TILE };
+window.__bw = { game, loadLevel, LEVELS, TILE, audio };
