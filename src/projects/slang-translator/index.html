@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cape Town Slang Translator | Brendon Pedro</title>
+  <meta name="description" content="Translate Cape Town slang into plain English. Aweh!" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="slang.scss" />
+</head>
+
+<body class="slang-page">
+  <a class="back-link" href="../../index.html">&larr; back to portfolio</a>
+
+  <main class="slang">
+    <header class="slang__header">
+      <h1 class="slang__title">Cape Town<br />Slang Translator</h1>
+      <p class="slang__subtitle">From the Mother City to plain English. Aweh!</p>
+    </header>
+
+    <section class="slang__panel" aria-label="Translator">
+      <form class="slang__form" id="slang-form">
+        <label class="slang__label" for="slang-input">Gooi a word in here, bru:</label>
+        <div class="slang__inputrow">
+          <input class="slang__input" id="slang-input" type="text" autocomplete="off" spellcheck="false"
+            placeholder="e.g. lekker" list="slang-words" />
+          <button class="slang__btn" type="submit">Translate</button>
+          <button class="slang__btn slang__btn--random" type="button" id="random-btn">
+            &#127922; Random slang
+          </button>
+        </div>
+        <datalist id="slang-words"></datalist>
+      </form>
+
+      <div class="slang__chips" id="slang-chips" aria-label="Quick picks"></div>
+
+      <div class="slang__result" id="slang-result" aria-live="polite">
+        <p class="slang__result-hint">Type a word, tap a chip, or roll the dice&hellip; now-now.</p>
+      </div>
+    </section>
+
+    <footer class="slang__footer">
+      <p>Built with love (and a gatsby in one hand) by
+        <a href="../../index.html">Brendon Pedro</a> &middot; born &amp; raised in Cape Town &#127469;&#127462;
+      </p>
+    </footer>
+  </main>
+
+  <script defer type="module" src="slang.js"></script>
+</body>
+
+</html>

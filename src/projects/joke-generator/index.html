@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joke Generator 3000 | Brendon Pedro</title>
+  <meta name="description" content="Dad-grade jokes on demand, straight from Brendon Pedro's hero section." />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="jokes.scss" />
+</head>
+
+<body class="jokes-page">
+  <a class="back-link" href="../../index.html">&larr; back to portfolio</a>
+
+  <main class="jokes">
+    <header class="jokes__header">
+      <h1 class="jokes__title">Joke Generator 3000</h1>
+      <p class="jokes__subtitle">The machine behind the hero joke. I'm a developer, not a jokesmith&hellip; lol.</p>
+    </header>
+
+    <section class="jokes__crt" aria-label="Joke terminal">
+      <div class="jokes__screen">
+        <p class="jokes__boot" id="joke-boot">JOKE-DOS v3.0 &mdash; 640K of humor (should be enough for anybody)</p>
+        <p class="jokes__line" id="joke-setup" aria-live="polite"></p>
+        <p class="jokes__line jokes__line--punch" id="joke-punchline" aria-live="polite"></p>
+        <span class="jokes__cursor" id="joke-cursor" aria-hidden="true">&#9608;</span>
+      </div>
+
+      <div class="jokes__controls">
+        <button class="jokes__btn" id="joke-btn" type="button">&#9654; GENERATE JOKE</button>
+        <div class="jokes__meter" id="joke-meter" hidden>
+          <span class="jokes__meter-label">Rate it:</span>
+          <button class="jokes__rate" id="rate-eish" type="button">&#128529; eish (<span id="count-eish">0</span>)</button>
+          <button class="jokes__rate" id="rate-lekker" type="button">&#128514; lekker (<span id="count-lekker">0</span>)</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="jokes__footer">
+      <p>Quality guaranteed by absolutely nobody. More at
+        <a href="../../index.html">brendonpedro.netlify.app</a></p>
+    </footer>
+  </main>
+
+  <script defer type="module" src="jokes.js"></script>
+</body>
+
+</html>
