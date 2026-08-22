@@ -1,0 +1,430 @@
+// Brendon's World — DOS-era game chrome.
+
+$bg-deep: #12081f;
+$bg-mid: #241640;
+$accent: #a988ff;
+$gold: #ffd23e;
+$green: #4ade4a;
+$ink: #14181f;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body.game-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(180deg, $bg-mid 0%, $bg-deep 100%);
+  color: #e8e3f7;
+}
+
+.back-link {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 1.1rem;
+  color: #e8e3f7;
+  border: 2px solid $accent;
+  border-radius: 0.6rem;
+  padding: 0.7rem 1.2rem;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    background: $accent;
+    color: $ink;
+  }
+}
+
+.game-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.4rem 2rem;
+  flex-wrap: wrap;
+
+  &__title {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 1.8rem;
+    color: $gold;
+    text-shadow: 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.1em;
+
+    @media (max-width: 700px) {
+      order: -1;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 0.8rem;
+  }
+}
+
+.chip-btn {
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 1rem;
+  color: #e8e3f7;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid #5a4a8a;
+  border-radius: 0.6rem;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    border-color: $accent;
+    background: rgba(169, 136, 255, 0.2);
+  }
+}
+
+.game-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 2rem 3rem;
+  flex-wrap: wrap;
+}
+
+.game-frame {
+  position: relative;
+  width: min(96rem, 100%);
+  border: 4px solid #3a2a5e;
+  border-radius: 1rem;
+  background: #000;
+  box-shadow: 1rem 1rem 0 rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  outline: none;
+}
+
+// ---- overlays --------------------------------------------------------------
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  text-align: center;
+  background: rgba(10, 4, 20, 0.88);
+  padding: 2rem;
+  z-index: 5;
+
+  &--visible {
+    display: flex;
+  }
+
+  &__kicker {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 1.2rem;
+    color: $accent;
+    letter-spacing: 0.25em;
+  }
+
+  &__title {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 4.2rem;
+    line-height: 1.25;
+    color: $gold;
+    text-shadow: 0.4rem 0.4rem 0 #7a2ca0, 0.8rem 0.8rem 0 rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 700px) {
+      font-size: 2.6rem;
+    }
+
+    &--small {
+      font-size: 2.6rem;
+
+      @media (max-width: 700px) {
+        font-size: 1.8rem;
+      }
+    }
+  }
+
+  &__sub {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 1.2rem;
+    color: #cfc4ef;
+  }
+
+  &__btn {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 1.5rem;
+    padding: 1.2rem 2rem;
+    color: $ink;
+    background: $green;
+    border: 3px solid #000;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    box-shadow: 0.4rem 0.4rem 0 #000;
+
+    &:hover,
+    &:focus {
+      transform: translate(-0.2rem, -0.2rem);
+      box-shadow: 0.6rem 0.6rem 0 #000;
+    }
+
+    &:active {
+      transform: translate(0.2rem, 0.2rem);
+      box-shadow: 0.1rem 0.1rem 0 #000;
+    }
+
+    &--alt {
+      background: $gold;
+    }
+
+    @media (max-width: 700px) {
+      font-size: 1.2rem;
+      padding: 1rem 1.4rem;
+    }
+  }
+
+  &__row {
+    display: flex;
+    gap: 1.4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__link {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 1.2rem;
+    color: $accent;
+
+    &:hover,
+    &:focus {
+      color: $gold;
+    }
+  }
+
+  &__help {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: #cfc4ef;
+
+    &--dim {
+      color: #8a7ab0;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// ---- toast -----------------------------------------------------------------
+
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 1.6rem;
+  transform: translateX(-50%) translateY(200%);
+  background: #000;
+  color: $gold;
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 1.2rem;
+  padding: 1rem 1.6rem;
+  border: 2px solid $gold;
+  border-radius: 0.6rem;
+  transition: transform 0.25s ease-out;
+  z-index: 6;
+  max-width: 90%;
+  text-align: center;
+  pointer-events: none;
+
+  &--show {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+// ---- touch controls --------------------------------------------------------
+
+.touch-controls {
+  display: none;
+  position: absolute;
+  inset: auto 0 0 0;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 1.2rem;
+  z-index: 4;
+  pointer-events: none;
+
+  &__pad {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.touch-btn {
+  pointer-events: auto;
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 2rem;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+
+  &--jump {
+    width: 9rem;
+    font-size: 1.2rem;
+  }
+
+  &:active {
+    background: rgba(169, 136, 255, 0.5);
+  }
+}
+
+@media (pointer: coarse) {
+  .touch-controls {
+    display: flex;
+  }
+}
+
+// ---- loot panel ------------------------------------------------------------
+
+.loot {
+  width: min(34rem, 100%);
+  background: rgba(0, 0, 0, 0.4);
+  border: 3px solid #3a2a5e;
+  border-radius: 1rem;
+  padding: 1.8rem;
+  display: none;
+
+  &--open {
+    display: block;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 1.6rem;
+    color: $gold;
+  }
+
+  &__hint {
+    font-size: 1.2rem;
+    color: #8a7ab0;
+    margin-bottom: 1.6rem;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  &__item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    border: 2px dashed #3a2a5e;
+    border-radius: 0.8rem;
+    padding: 1rem;
+
+    // locked state: silhouette until collected in-game
+    &:not(.loot__item--unlocked) {
+      filter: grayscale(1) brightness(0.55);
+
+      .loot__body a,
+      .loot__body small {
+        pointer-events: none;
+      }
+
+      .loot__body a {
+        color: #6a5a90;
+      }
+
+      .loot__body::after {
+        content: "?? find it in the game ??";
+        display: block;
+        font-size: 1rem;
+        color: #6a5a90;
+        font-family: "Sixtyfour", sans-serif;
+        margin-top: 0.4rem;
+      }
+    }
+
+    &--unlocked {
+      border-style: solid;
+      border-color: $gold;
+    }
+  }
+
+  &__icon {
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+
+  &__body {
+    font-size: 1.3rem;
+
+    a {
+      color: $green;
+      font-weight: 700;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: $gold;
+        text-decoration: underline;
+      }
+    }
+
+    small {
+      display: block;
+      color: #cfc4ef;
+      margin-top: 0.3rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .loot {
+    width: min(96rem, 100%);
+  }
+}
+
+.game-footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #8a7ab0;
+
+  a,
+  code {
+    color: $accent;
+  }
+}

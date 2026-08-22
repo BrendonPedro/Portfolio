@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brendon's World | The Portfolio Game</title>
+  <meta name="description"
+    content="Brendon Pedro's portfolio as a playable retro DOS-style platformer. Run, jump, and collect the resume." />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="game.scss" />
+</head>
+
+<body class="game-page">
+  <header class="game-topbar">
+    <a class="back-link" href="../index.html">&larr; exit to portfolio</a>
+    <h1 class="game-topbar__title">BRENDON'S WORLD</h1>
+    <div class="game-topbar__buttons">
+      <button id="btn-mute" class="chip-btn" type="button" aria-label="Toggle sound">&#128266; sound</button>
+      <button id="btn-pause" class="chip-btn" type="button" aria-label="Pause game">&#10073;&#10073; pause</button>
+      <button id="btn-loot" class="chip-btn" type="button" aria-label="Open loot panel">&#127890; loot</button>
+    </div>
+  </header>
+
+  <main class="game-main">
+    <div class="game-frame">
+      <canvas id="game-canvas" width="320" height="232" tabindex="0"
+        aria-label="Brendon's World — a retro platformer. Use arrow keys or WASD to move, Space to jump."></canvas>
+
+      <!-- overlays -->
+      <div class="overlay overlay--visible" id="overlay-title">
+        <p class="overlay__kicker">BRENDON PEDRO PRESENTS</p>
+        <p class="overlay__title">BRENDON'S<br />WORLD</p>
+        <p class="overlay__sub">a portfolio you can jump on</p>
+        <button class="overlay__btn" id="btn-start" type="button">&#9654; START GAME</button>
+        <p class="overlay__help">
+          &larr; &rarr; / A D &mdash; move &middot; SPACE / W / &uarr; &mdash; jump<br />
+          P &mdash; pause &middot; R &mdash; restart level &middot; M &mdash; mute
+        </p>
+        <p class="overlay__help overlay__help--dim">Collect the gold cup to open the exit door.<br />
+          Grab my resume, my job and my projects as loot along the way.</p>
+      </div>
+
+      <div class="overlay" id="overlay-level">
+        <p class="overlay__kicker" id="level-kicker">LEVEL 1</p>
+        <p class="overlay__title overlay__title--small" id="level-name">CAPE TOWN</p>
+        <p class="overlay__sub" id="level-sub"></p>
+      </div>
+
+      <div class="overlay" id="overlay-pause">
+        <p class="overlay__title overlay__title--small">PAUSED</p>
+        <p class="overlay__sub">press P to continue</p>
+        <button class="overlay__btn" id="btn-resume" type="button">&#9654; RESUME</button>
+      </div>
+
+      <div class="overlay" id="overlay-win">
+        <p class="overlay__kicker">CONGRATULATIONS!</p>
+        <p class="overlay__title overlay__title--small">PORTFOLIO<br />100% COLLECTED</p>
+        <p class="overlay__sub" id="win-stats"></p>
+        <div class="overlay__row">
+          <button class="overlay__btn" id="btn-again" type="button">&#8635; PLAY AGAIN</button>
+          <button class="overlay__btn overlay__btn--alt" id="btn-win-loot" type="button">&#127890; VIEW LOOT</button>
+        </div>
+        <a class="overlay__link" href="../index.html">exit to portfolio &rarr;</a>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      <!-- touch controls -->
+      <div class="touch-controls" id="touch-controls" aria-hidden="true">
+        <div class="touch-controls__pad">
+          <button class="touch-btn" id="touch-left" type="button">&lt;</button>
+          <button class="touch-btn" id="touch-right" type="button">&gt;</button>
+        </div>
+        <button class="touch-btn touch-btn--jump" id="touch-jump" type="button">JUMP</button>
+      </div>
+    </div>
+
+    <!-- Loot panel: everything you unlock in-game, with real links -->
+    <aside class="loot" id="loot-panel" aria-label="Collected loot">
+      <div class="loot__head">
+        <h2 class="loot__title">&#127890; LOOT</h2>
+        <button class="chip-btn" id="btn-loot-close" type="button">close &times;</button>
+      </div>
+      <p class="loot__hint">Things you've collected in the game. They're real.</p>
+      <ul class="loot__list">
+        <li class="loot__item" data-loot="thesis">
+          <span class="loot__icon">&#128220;</span>
+          <span class="loot__body">
+            <a href="../assets/Brendon Pedro_IMBA Thesis_110077443.pdf" target="_blank" rel="noreferrer">IMBA Thesis</a>
+            <small>&#128274; password protected &mdash; ask Brendon nicely</small>
+          </span>
+        </li>
+        <li class="loot__item" data-loot="pbc">
+          <span class="loot__icon">&#128055;</span>
+          <span class="loot__body">
+            <a href="https://www.porkbellycreative.tw/en" target="_blank" rel="noreferrer">Pork Belly Creative</a>
+            <small>AI &amp; Engineering Lead (Jun 2026&ndash;now). Built <strong>Cortex</strong>, PBC's production IP
+              &amp; outreach platform on Next.js + Supabase + the Claude API.</small>
+          </span>
+        </li>
+        <li class="loot__item" data-loot="robo">
+          <span class="loot__icon">&#129302;</span>
+          <span class="loot__body">
+            <a href="https://brendonpedro.github.io/robofriends/" target="_blank" rel="noreferrer">RoboFriends</a>
+            <small>meet the robofriends</small>
+          </span>
+        </li>
+        <li class="loot__item" data-loot="jokes">
+          <span class="loot__icon">&#128514;</span>
+          <span class="loot__body">
+            <a href="../projects/joke-generator/index.html">Joke Generator 3000</a>
+            <small>dad-grade humor on demand</small>
+          </span>
+        </li>
+        <li class="loot__item" data-loot="slang">
+          <span class="loot__icon">&#128495;</span>
+          <span class="loot__body">
+            <a href="../projects/slang-translator/index.html">Cape Town Slang Translator</a>
+            <small>aweh, bru</small>
+          </span>
+        </li>
+        <li class="loot__item" data-loot="nycu">
+          <span class="loot__icon">&#127891;</span>
+          <span class="loot__body">
+            <a href="https://www.nycu.edu.tw/nycu/en/index" target="_blank" rel="noreferrer">NYCU</a>
+            <small>M.S. EECS student (CS &amp; AI focus), expected 2028</small>
+          </span>
+        </li>
+        <li class="loot__item" data-loot="resume">
+          <span class="loot__icon">&#128196;</span>
+          <span class="loot__body">
+            <a href="../assets/resume.pdf" target="_blank" rel="noreferrer">Brendon's Resume</a>
+            <small>the legendary scroll itself (PDF)</small>
+          </span>
+        </li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer class="game-footer">
+    <p>100% original pixels &mdash; lovingly drawn in the style of early-90s DOS platformers.
+      Built with vanilla JS + <code>&lt;canvas&gt;</code> by <a href="../index.html">Brendon Pedro</a>.</p>
+  </footer>
+
+  <script defer type="module" src="game.js"></script>
+</body>
+
+</html>
