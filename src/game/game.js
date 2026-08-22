@@ -41,7 +41,7 @@ const LOOT_NAMES = {
   slang: "\u{1F4AC} SLANG TRANSLATOR CARTRIDGE COLLECTED! Aweh!",
   nycu: "\u{1F393} NYCU STUDENT CARD FOUND! M.S. EECS, expected 2028",
   resume: "\u{1F4C4} THE LEGENDARY RESUME IS YOURS!",
-  love: "\u{1F49A} PLAYER 2 JOINED! Met in 2020 — married in 2022",
+  love: "\u{1F49A} PLAYER 2 JOINED! Together since 2009 — married in 2022",
 };
 const LOOT_TOTAL = Object.keys(LOOT_NAMES).length;
 
@@ -105,7 +105,7 @@ const LEVELS = [
       put(6, 17, 19, "=");
       put(5, 18, 18, "P"); // the pig itself
       put(10, 20, 20, "C");
-      put(9, 24, 24, "W"); // player 2 <3 (met 2020, married 2022)
+      put(9, 24, 24, "W"); // player 2 <3 (together since 2009, married 2022)
       put(11, 26, 27, "F");
       put(10, 31, 31, "C"); // floats over the pit, grab mid-jump
       put(9, 34, 36, "=");

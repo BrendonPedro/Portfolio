@@ -56,6 +56,13 @@
       transform: translateY(-2px);
     }
   }
+
+  &__line svg {
+    display: block;
+    margin: 0 auto;
+    width: 4.2rem;
+    height: 4.2rem;
+  }
 }
 
 .back-to-top i {
