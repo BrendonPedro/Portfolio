@@ -1,0 +1,158 @@
+// Cover letter — paper on the portfolio's green, print-friendly.
+
+$primary: #52e509;
+$secondary: #92ff9f;
+$ink: #14181f;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body.letter-page {
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  color: $ink;
+  background: linear-gradient(135deg, $primary 0%, $secondary 55%, #fff 100%);
+  padding: 2rem;
+}
+
+.letter-toolbar {
+  max-width: 76rem;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.back-link,
+.print-btn {
+  display: inline-block;
+  font-family: "Sixtyfour", sans-serif;
+  font-size: 1.2rem;
+  color: $ink;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid $ink;
+  border-radius: 0.8rem;
+  padding: 0.8rem 1.4rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0.4rem 0.4rem 0 rgba(0, 0, 0, 0.25);
+
+  &:hover,
+  &:focus {
+    transform: translate(-0.2rem, -0.2rem);
+    box-shadow: 0.6rem 0.6rem 0 rgba(0, 0, 0, 0.25);
+  }
+}
+
+.letter {
+  max-width: 76rem;
+  margin: 0 auto;
+  background: #fffdf8;
+  border: 4px solid $ink;
+  border-radius: 1.2rem;
+  box-shadow: 0.8rem 0.8rem 0 rgba(0, 0, 0, 0.25);
+  padding: 4.5rem 5rem;
+
+  @media (max-width: 700px) {
+    padding: 2.4rem 1.8rem;
+  }
+
+  &__head {
+    border-bottom: 3px solid $ink;
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  &__name {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 2.6rem;
+    margin-bottom: 1.2rem;
+
+    @media (max-width: 700px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__meta {
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: lighten($ink, 20%);
+
+    a {
+      color: darken($primary, 18%);
+      font-weight: 700;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__body {
+    font-size: 1.5rem;
+    line-height: 1.9;
+
+    p {
+      margin-bottom: 1.8rem;
+    }
+  }
+
+  &__signoff {
+    margin-top: 3rem;
+  }
+
+  &__signature {
+    font-family: "Sixtyfour", sans-serif;
+    font-size: 1.8rem;
+    display: inline-block;
+    margin-top: 0.8rem;
+  }
+
+  &__footer {
+    max-width: 76rem;
+    margin: 2.4rem auto 0;
+    text-align: center;
+    font-size: 1.4rem;
+    color: $ink;
+
+    a {
+      color: darken($primary, 20%);
+      font-weight: 700;
+    }
+  }
+}
+
+@media print {
+  body.letter-page {
+    background: #fff;
+    padding: 0;
+  }
+
+  .letter-toolbar,
+  .letter__footer {
+    display: none;
+  }
+
+  .letter {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    max-width: none;
+    padding: 1cm 1.5cm;
+  }
+
+  .letter__meta a {
+    color: $ink;
+  }
+}

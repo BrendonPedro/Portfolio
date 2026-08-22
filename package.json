@@ -6,6 +6,7 @@
   "source": [
     "src/index.html",
     "src/game/index.html",
+    "src/cover-letter/index.html",
     "src/projects/slang-translator/index.html",
     "src/projects/joke-generator/index.html"
   ],

@@ -44,6 +44,11 @@
         align-items: center;
       }
 
+      .about-wrapper__links {
+        gap: 1.6rem;
+        flex-wrap: wrap;
+      }
+
       .about-wrapper__thesis {
         margin-top: 1.8rem;
         font-size: 1.3rem;
