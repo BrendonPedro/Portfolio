@@ -1,4 +1,4 @@
-// Joke Generator 3000 — the very serious machine behind the hero joke.
+// Joke Generator 3000 - the very serious machine behind the hero joke.
 
 const JOKES = [
   { setup: "Have you heard the joke about the bed?", punchline: "I didn't make it up yet 😅" },

@@ -1,5 +1,5 @@
 // ============================================================================
-// BRENDON'S WORLD — a Dangerous-Dave-style portfolio platformer.
+// BRENDON'S WORLD - a Dangerous-Dave-style portfolio platformer.
 // 100% vanilla JS + <canvas>. All pixels original, drawn in code.
 // ============================================================================
 
@@ -35,13 +35,13 @@ const LOOT_TILES = {
 
 const LOOT_NAMES = {
   thesis: "\u{1F4DC} SECRET THESIS FOUND! (password protected, obviously)",
-  pbc: "\u{1F437} PBC UNLOCKED! AI & Engineering Lead — builder of Cortex",
+  pbc: "\u{1F437} PBC UNLOCKED! AI & Engineering Lead - builder of Cortex",
   cemta: "\u{1F35C} CEMTA CARTRIDGE COLLECTED! Menus, translated",
   jokes: "\u{1F602} JOKE GENERATOR 3000 CARTRIDGE COLLECTED!",
   slang: "\u{1F4AC} SLANG TRANSLATOR CARTRIDGE COLLECTED! Aweh!",
   nycu: "\u{1F393} NYCU STUDENT CARD FOUND! M.S. EECS, expected 2028",
   resume: "\u{1F4C4} THE LEGENDARY RESUME IS YOURS!",
-  love: "\u{1F49A} PLAYER 2 JOINED! Together since 2009 — married in 2022",
+  love: "\u{1F49A} PLAYER 2 JOINED! Together since 2009 - married in 2022",
 };
 const LOOT_TOTAL = Object.keys(LOOT_NAMES).length;
 
@@ -329,7 +329,7 @@ const audio = {
     this.tune([523, 659, 784, 1047, 784, 1047, 1319, 1568], 0.12);
   },
 
-  // ---- background music: a looping Am–F–C–G chiptune, sequenced live ------
+  // ---- background music: a looping Am-F-C-G chiptune, sequenced live ------
   MUSIC_STEP: 0.145, // seconds per 8th note (~103 BPM)
   MELODY: [
     440, 523, 659, 523, 440, 523, 659, 784, // Am
@@ -997,7 +997,7 @@ function drawHUD() {
     ctx.fillText("CUP?", VIEW_W - 46, 3);
   }
 
-  // deaths (skull drawn in pixels — emoji glyphs aren't reliable in canvas)
+  // deaths (skull drawn in pixels - emoji glyphs aren't reliable in canvas)
   ctx.fillStyle = "#e8e3f7";
   ctx.fillRect(VIEW_W - 28, 3, 6, 4);
   ctx.fillRect(VIEW_W - 27, 7, 4, 2);
@@ -1181,5 +1181,5 @@ game.level = LEVELS[0];
 game.tiles = LEVELS[0].grid.map((r) => r.slice());
 requestAnimationFrame(frame);
 
-// tiny debug hook (also handy if you want to poke around in devtools — hi!)
+// tiny debug hook (also handy if you want to poke around in devtools - hi!)
 window.__bw = { game, loadLevel, LEVELS, TILE, audio };

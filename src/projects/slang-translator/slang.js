@@ -1,4 +1,4 @@
-// Cape Town Slang Translator — plain vanilla JS, no frameworks, just vibes.
+// Cape Town Slang Translator - plain vanilla JS, no frameworks, just vibes.
 
 const DICTIONARY = [
   { word: "Aweh", meaning: "Hello! / Yes! / I acknowledge you, friend.", example: "Aweh bru, long time!", vibe: "The universal Cape Town greeting. Works anywhere, anytime." },
@@ -6,7 +6,7 @@ const DICTIONARY = [
   { word: "Lekker", meaning: "Nice, great, delicious, excellent.", example: "That braai was lekker, hey.", vibe: "The highest compliment available in the Cape." },
   { word: "Kief", meaning: "Cool, awesome, very nice.", example: "Kief tekkies, where'd you get them?", vibe: "Surfer-approved since forever." },
   { word: "Bru", meaning: "Brother, friend, any human being.", example: "No ways, bru.", vibe: "Gender-neutral in practice. Everyone is bru." },
-  { word: "Boet", meaning: "Brother — affectionate term for a mate.", example: "Boet, you won't believe this.", vibe: "Slightly more heartfelt than bru." },
+  { word: "Boet", meaning: "Brother - affectionate term for a mate.", example: "Boet, you won't believe this.", vibe: "Slightly more heartfelt than bru." },
   { word: "China", meaning: "Friend, mate (from Cockney 'china plate' = mate).", example: "My china, help me quick.", vibe: "Old-school but still going strong." },
   { word: "Now-now", meaning: "Soon-ish. Anywhere from 5 minutes to 2 hours.", example: "I'll be there now-now.", vibe: "Sooner than 'just now', later than 'now'. Trust the system." },
   { word: "Just now", meaning: "At some point. Possibly today. Possibly never.", example: "I'll do the dishes just now.", vibe: "The most flexible unit of time known to science." },
@@ -16,10 +16,10 @@ const DICTIONARY = [
   { word: "Gatsby", meaning: "A giant Cape Town sandwich stuffed with chips and everything else.", example: "One full gatsby, four friends, no regrets.", vibe: "Not the novel. Better than the novel." },
   { word: "Robot", meaning: "A traffic light.", example: "Turn left at the second robot.", vibe: "Confuses every tourist. Delights every local." },
   { word: "Bakkie", meaning: "A pickup truck.", example: "Load the surfboards on the bakkie.", vibe: "Half vehicle, half national treasure." },
-  { word: "Braai", meaning: "A barbecue — the event AND the fire itself.", example: "Come over for a braai on Saturday.", vibe: "Sacred. Do not call it a BBQ to a local's face." },
+  { word: "Braai", meaning: "A barbecue - the event AND the fire itself.", example: "Come over for a braai on Saturday.", vibe: "Sacred. Do not call it a BBQ to a local's face." },
   { word: "Yoh", meaning: "Wow / whoa / expression of surprise.", example: "Yoh, did you see that wave?", vibe: "Stretch the 'o' for extra emphasis: yooooh." },
-  { word: "Shame", meaning: "Aww / sympathy — usually a GOOD thing here.", example: "Shame, look how cute the puppy is!", vibe: "Not actually shaming anyone. Confusing, we know." },
-  { word: "Is it", meaning: "Oh really? / Is that so? (No question mark needed.)", example: "— I got a new job. — Is it?", vibe: "The all-purpose response when you're only half listening." },
+  { word: "Shame", meaning: "Aww / sympathy - usually a GOOD thing here.", example: "Shame, look how cute the puppy is!", vibe: "Not actually shaming anyone. Confusing, we know." },
+  { word: "Is it", meaning: "Oh really? / Is that so? (No question mark needed.)", example: "- I got a new job. - Is it?", vibe: "The all-purpose response when you're only half listening." },
   { word: "Hectic", meaning: "Intense, wild, a lot to process.", example: "Load shedding again? Hectic, bru.", vibe: "Cape Town's favourite adjective for literally everything." },
   { word: "Babbelas", meaning: "A hangover.", example: "That jol gave me a moerse babbelas.", vibe: "Pronounced 'bub-buh-luss'. Felt everywhere." },
   { word: "Dop", meaning: "A drink (usually alcoholic).", example: "Come have a dop with us.", vibe: "One dop is never one dop." },
