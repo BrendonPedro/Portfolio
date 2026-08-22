@@ -2,8 +2,13 @@
   "name": "portfolio",
   "version": "1.0.1",
   "private": "true",
-  "description": "A clean, beautiful and responsive portfolio template!",
-  "source": "src/index.html",
+  "description": "Brendon Pedro's personal portfolio — plus a playable retro DOS-style platformer.",
+  "source": [
+    "src/index.html",
+    "src/game/index.html",
+    "src/projects/slang-translator/index.html",
+    "src/projects/joke-generator/index.html"
+  ],
   "scripts": {
     "start": "parcel",
     "build": "parcel build"
@@ -14,7 +19,7 @@
   },
   "keywords": [],
   "author": "Brendon Pedro",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cobiwave/simplefolio/issues"
   },
