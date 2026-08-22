@@ -30,6 +30,7 @@ const LOOT_TILES = {
   B: "slang",
   N: "nycu",
   R: "resume",
+  W: "love",
 };
 
 const LOOT_NAMES = {
@@ -40,7 +41,9 @@ const LOOT_NAMES = {
   slang: "\u{1F4AC} SLANG TRANSLATOR CARTRIDGE COLLECTED! Aweh!",
   nycu: "\u{1F393} NYCU STUDENT CARD FOUND! M.S. EECS, expected 2028",
   resume: "\u{1F4C4} THE LEGENDARY RESUME IS YOURS!",
+  love: "\u{1F49A} PLAYER 2 JOINED! Met in 2020 — married in 2022",
 };
+const LOOT_TOTAL = Object.keys(LOOT_NAMES).length;
 
 // ---- level definitions -----------------------------------------------------
 // Built programmatically so the geometry is always consistent.
@@ -102,6 +105,7 @@ const LEVELS = [
       put(6, 17, 19, "=");
       put(5, 18, 18, "P"); // the pig itself
       put(10, 20, 20, "C");
+      put(9, 24, 24, "W"); // player 2 <3 (met 2020, married 2022)
       put(11, 26, 27, "F");
       put(10, 31, 31, "C"); // floats over the pit, grab mid-jump
       put(9, 34, 36, "=");
@@ -514,7 +518,7 @@ function winGame() {
   document.getElementById("win-stats").textContent =
     "\u{1F4BE} " + game.floppies + "/" + game.floppyTotal +
     " floppies · \u{1F480} " + game.deaths +
-    " deaths · \u{1F392} " + lootCount + "/7 loot";
+    " deaths · \u{1F392} " + lootCount + "/" + LOOT_TOTAL + " loot";
   showOverlay("win");
 }
 
@@ -879,6 +883,26 @@ function drawScroll(x, y, t) {
   ctx.fillRect(x + 7, yy + 6, 2, 2);
 }
 
+function drawHeart(x, y, t) {
+  const bob = Math.floor(Math.sin(t / 12) * 2);
+  const yy = y + 2 + bob;
+  ctx.fillStyle = "#e84545";
+  ctx.fillRect(x + 3, yy + 2, 4, 3);
+  ctx.fillRect(x + 9, yy + 2, 4, 3);
+  ctx.fillRect(x + 2, yy + 4, 12, 4);
+  ctx.fillRect(x + 4, yy + 8, 8, 2);
+  ctx.fillRect(x + 6, yy + 10, 4, 2);
+  ctx.fillRect(x + 7, yy + 12, 2, 1);
+  ctx.fillStyle = "#ff9bb0";
+  ctx.fillRect(x + 4, yy + 3, 2, 2);
+  // sparkle
+  if (Math.floor(t / 12) % 3 === 0) {
+    ctx.fillStyle = "#fff2b0";
+    ctx.fillRect(x + 1, yy, 2, 2);
+    ctx.fillRect(x + 13, yy + 9, 2, 2);
+  }
+}
+
 function drawCap(x, y, t) {
   const bob = Math.floor(Math.sin(t / 12) * 2);
   const yy = y + 3 + bob;
@@ -914,6 +938,7 @@ function drawTiles() {
         case "B": drawCartridge(x, y, game.time, "#ff9a3e"); break;
         case "H": drawScroll(x, y, game.time); break;
         case "N": drawCap(x, y, game.time); break;
+        case "W": drawHeart(x, y, game.time); break;
       }
     }
   }
