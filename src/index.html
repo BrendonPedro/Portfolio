@@ -6,7 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google" content="notranslate">
-  <meta property="og:image" content="https://brendonpedro.netlify.app/favicon-32x32.png">
+
+  <!-- SEO: this page is the canonical front door -->
+  <link rel="canonical" href="https://brendonpedro.netlify.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://brendonpedro.netlify.app/" />
+  <meta property="og:title" content="Brendon Pedro | AI Engineer | Portfolio" />
+  <meta property="og:description"
+    content="AI &amp; Engineering Lead at Pork Belly Creative, NYCU EECS master's student, and builder of a portfolio you can play as a retro DOS platformer." />
+  <meta property="og:image" content="https://brendonpedro.netlify.app/android-chrome-512x512.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Brendon Pedro | AI Engineer | Portfolio" />
+  <meta name="twitter:description"
+    content="AI &amp; Engineering Lead at Pork Belly Creative — portfolio, projects, and a playable retro platformer." />
 
   <!-- Favicon setup for all platforms including Google search -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -27,6 +39,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.scss" />
   <script defer src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+  <!-- Structured data: tell Google who this page is about -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Brendon Pedro",
+    "url": "https://brendonpedro.netlify.app/",
+    "image": "https://brendonpedro.netlify.app/android-chrome-512x512.png",
+    "jobTitle": "AI & Engineering Lead",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Pork Belly Creative Ltd.",
+      "url": "https://www.porkbellycreative.tw/en"
+    },
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "National Tsing Hua University"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "University of the Western Cape"
+      }
+    ],
+    "birthPlace": {
+      "@type": "Place",
+      "name": "Cape Town, South Africa"
+    },
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Taichung, Taiwan"
+    },
+    "email": "mailto:bnppedro@gmail.com",
+    "sameAs": [
+      "https://github.com/BrendonPedro",
+      "https://www.linkedin.com/in/brendon-nicklo-paul-pedro/",
+      "https://www.instagram.com/brendonpedro/",
+      "https://imba.nthu.edu.tw/student-life/student-voices/160-brendon-nicklo-paul-pedro.html"
+    ]
+  }
+  </script>
 </head>
 
 <body>

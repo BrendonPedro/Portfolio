@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build",
+    "postbuild": "cp src/robots.txt src/sitemap.xml dist/"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
   },
   "homepage": "https://github.com/brendonpedro/portfolio/#readme",
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.8.2",
+    "@parcel/transformer-jsonld": "^2.8.2",
     "@parcel/transformer-sass": "^2.8.2",
     "parcel": "^2.8.2",
     "prettier": "^2.8.1"

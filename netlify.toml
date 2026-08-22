@@ -1,0 +1,13 @@
+# Netlify config — build + SEO headers
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Keep the resume/thesis PDFs downloadable but OUT of the Google index.
+# (Do NOT block /assets in robots.txt — Google must be able to crawl the
+# files to see this noindex header and drop them from results.)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
