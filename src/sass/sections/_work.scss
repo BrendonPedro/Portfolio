@@ -1,0 +1,100 @@
+#work {
+  @include section-gradient($work-accent, $work-accent-light);
+  color: $ink-color;
+  font-family: 'Sixtyfour', sans-serif;
+  padding: 8rem 0;
+
+  .work-wrapper {
+    row-gap: 3rem;
+    text-align: left;
+  }
+
+  .work-card {
+    height: 100%;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.85);
+    border: 3px solid $ink-color;
+    border-radius: 1rem;
+    box-shadow: 0.8rem 0.8rem 0 rgba(20, 24, 31, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @include respond(phone) {
+      padding: 2rem;
+    }
+
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+
+      @include respond(phone) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+      }
+    }
+
+    &__logo {
+      width: 8.8rem;
+      height: 8.8rem;
+      object-fit: contain;
+      border: 3px solid $ink-color;
+      border-radius: 1rem;
+      background: #fff;
+      padding: 0.6rem;
+      transition: transform 0.2s ease-in;
+
+      &:hover {
+        transform: translateY(-3px) rotate(-2deg);
+      }
+    }
+
+    &__title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin-bottom: 0.6rem;
+
+      @include respond(phone) {
+        font-size: 1.8rem;
+      }
+    }
+
+    &__org {
+      font-size: 1.4rem;
+      margin-bottom: 0;
+
+      a {
+        color: darken($work-accent, 32%);
+        font-family: inherit;
+        font-size: inherit;
+        border-bottom: 2px dotted currentColor;
+
+        &:hover {
+          color: $ink-color;
+        }
+      }
+    }
+
+    &__text {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      margin-bottom: 1.6rem;
+
+      &--joke {
+        font-style: italic;
+        color: lighten($ink-color, 25%);
+      }
+    }
+
+    & > .cta-btn {
+      margin-top: auto;
+    }
+
+    &--nycu {
+      background: rgba(255, 255, 255, 0.7);
+    }
+  }
+}

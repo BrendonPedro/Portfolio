@@ -9,6 +9,18 @@ $light-grey: #d3d3d3;
 
 $dark-blue-text: #b3b3b6; // For Headings
 
+// Ink (dark text on the light gradient sections)
+$ink-color: #14181f;
+
+// Per-section accent colors — every section blends accent -> white
+$work-accent: #ff9bb0; // pork-belly pink
+$work-accent-light: #ffd9e1;
+$projects-accent: #6cc9f5; // retro sky blue
+$projects-accent-light: #cfeeff;
+$game-accent: #a988ff; // DOS purple
+$game-accent-light: #e0d5ff;
+$retro-green: #4ade4a; // CRT phosphor green
+
 // FONT SIZE
 $default-font-size: 1.6rem;
 $big-font-size: 4rem;

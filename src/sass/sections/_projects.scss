@@ -1,8 +1,7 @@
 #projects {
-  background-color: $white-color;
-  color: $dark-blue-text;
-  margin-top: -10rem;
-  padding-top: 15rem;
+  @include section-gradient($projects-accent, $projects-accent-light);
+  color: $ink-color;
+  padding-top: 10rem;
   font-family: 'Sixtyfour', sans-serif;
 
   @include respond(tab-land) {
@@ -46,7 +45,7 @@
       }
 
       & p > a {
-        color: $secondary-color;
+        color: darken($primary-color, 15%);
       }
     }
 

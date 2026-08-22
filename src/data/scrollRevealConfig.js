@@ -30,6 +30,28 @@ export const targetElements = [
     },
   },
   {
+    element: ".hero-more",
+    animation: {
+      delay: 1400,
+      origin: window.innerWidth > 768 ? "left" : "bottom",
+    },
+  },
+  {
+    element: ".work-card",
+    animation: {
+      delay: 500,
+      origin: "bottom",
+      interval: 200,
+    },
+  },
+  {
+    element: ".game-teaser",
+    animation: {
+      delay: 400,
+      origin: "bottom",
+    },
+  },
+  {
     element: ".about-wrapper__image",
     animation: {
       delay: 600,

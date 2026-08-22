@@ -54,7 +54,9 @@
   .hero-cta {
     font-family: 'Sixtyfour', sans-serif;
     display: flex;
-    
+    flex-wrap: wrap;
+    gap: 2rem;
+
     @include respond(tab-port) {
       justify-content: center;
     }
@@ -65,6 +67,30 @@
 
       @include respond(phone) {
         font-size: 2rem;
+      }
+    }
+  }
+
+  .hero-more {
+    font-family: 'Sixtyfour', sans-serif;
+    display: flex;
+    margin-top: 2.4rem;
+
+    @include respond(tab-port) {
+      justify-content: center;
+    }
+
+    &__link {
+      font-size: 1.4rem;
+      color: $secondary-color;
+      border-bottom: 2px dotted $secondary-color;
+      transition: all 0.3s ease-in-out;
+
+      &:hover,
+      &:focus {
+        color: $primary-color;
+        border-bottom-color: $primary-color;
+        transform: translateX(4px);
       }
     }
   }

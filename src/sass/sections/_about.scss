@@ -1,10 +1,5 @@
 #about {
-  background-color: $primary-color;
-  background-image: linear-gradient(
-    135deg,
-    $primary-color 0%,
-    $secondary-color 100%
-  );
+  @include section-gradient($primary-color, $secondary-color);
   color: $white-color;
   height: 100%;
   border-top: 0px;
@@ -49,6 +44,28 @@
         align-items: center;
       }
 
+      .about-wrapper__thesis {
+        margin-top: 1.8rem;
+        font-size: 1.3rem;
+        color: $ink-color;
+        text-align: left;
+
+        @include respond(tab-port-sm) {
+          text-align: center;
+        }
+
+        a {
+          color: darken($primary-color, 15%);
+          font-family: inherit;
+          font-size: inherit;
+          border-bottom: 2px dotted currentColor;
+
+          &:hover {
+            color: $ink-color;
+          }
+        }
+      }
+
       &-text {
         text-align: left;
         color: black;
@@ -58,6 +75,17 @@
         }
         @include respond(tab-port-sm) {
           text-align: center;
+        }
+
+        a {
+          color: darken($primary-color, 12%);
+          font-family: inherit;
+          font-size: inherit;
+          border-bottom: 2px dotted currentColor;
+
+          &:hover {
+            color: $ink-color;
+          }
         }
 
         &--important {

@@ -1,14 +1,3 @@
-<!--
-  Hello!
-  -
-  Simplefolio is a clean and responsive portfolio template for Developers!
-  Created by Jacobo Martinez.
-  -
-  Github Repo: https://github.com/cobiwave/simplefolio/
-  Readme: https://github.com/cobiwave/simplefolio/README.md
-  -
-  For business & inquires, contact me -> jacobojavier98@gmail.com
--->
 <!DOCTYPE html>
 <html lang="en" class="sr">
 
@@ -18,31 +7,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google" content="notranslate">
   <meta property="og:image" content="https://brendonpedro.netlify.app/favicon-32x32.png">
-  
+
   <!-- Favicon setup for all platforms including Google search -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  
+
   <!-- The original shortcut icon can stay as a fallback -->
   <link rel="shortcut icon" type="image/png" href="assets/sig2.png" />
-  
+
   <!-- site title -->
-  <title>Brendon Pedro | Developer | Portfolio</title>
-  <!-- Todo: add some coding keywords below - e.g: (javascript, yourusername, etc) -->
-  <meta name="keywords" content="Brendon Pedro portfolio, developer, css, html, javascript, brendon pedro capetown, freelance" />
-  <!-- Todo: improve your SEO by adding a small description of you -->
-  <meta name="description" content="Brendon Pedro's portfolio showcasing his web development projects, skills in HTML, CSS, JavaScript, and more." />
+  <title>Brendon Pedro | AI Engineer | Portfolio</title>
+  <meta name="keywords"
+    content="Brendon Pedro portfolio, AI engineer, full-stack developer, javascript, typescript, Claude API, MCP, Taiwan, Cape Town, retro game portfolio" />
+  <meta name="description"
+    content="Brendon Pedro — AI &amp; Engineering Lead at Pork Belly Creative and NYCU EECS master's student. A portfolio you can read… or play as a retro DOS-style platformer." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.scss" />
   <script defer src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-  <!-- Todo: remove the below script once you finish your portfolio -->
-  <!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
 </head>
-
-<!-- Todo: read the following HTML Todos to create your stunning portfolio website -->
 
 <body>
   <div id="top"></div>
@@ -56,6 +41,10 @@
       </h1>
       <p class="hero-cta load-hidden">
         <a rel="noreferrer" class="cta-btn cta-btn--hero" href="#about">Hire Me!</a>
+        <a rel="noreferrer" class="cta-btn cta-btn--hero" href="game/index.html">&#9654; Play the Game</a>
+      </p>
+      <p class="hero-more load-hidden">
+        <a class="hero-more__link" href="projects/joke-generator/index.html">want more jokes? &rarr;</a>
       </p>
     </div>
   </section>
@@ -68,8 +57,8 @@
       <div class="row about-wrapper">
         <div class="col-md-6 col-sm-12">
           <div class="about-wrapper__image load-hidden">
-            <img alt="Profile Image" class="img-fluid rounded shadow-lg" height="auto" width="300px" src="assets/Brendon.png"
-              alt="Profile Image" />
+            <img alt="Portrait of Brendon Pedro" class="img-fluid rounded shadow-lg" height="auto" width="300px"
+              src="assets/Brendon.png" />
           </div>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -82,15 +71,26 @@
               business, data analytics, and developing cool apps.
             </p>
             <p class="about-wrapper__info-text">
+              These days I build production AI platforms end to end &mdash; full-stack web apps,
+              LLM-powered engines, and agentic pipelines &mdash; with TypeScript, React/Next.js,
+              Python, PostgreSQL, and the Claude API.
+            </p>
+            <p class="about-wrapper__info-text">
               I believe in training both body and mind. You'll find me lifting weights, sparring in the ring, or
               strategizing over a
               chessboard with equal enthusiasm.
             </p>
-            <span class="d-flex mt-3">
+            <span class="d-flex mt-3 about-wrapper__links">
               <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--resume" href="assets/resume.pdf">
                 View Resume
               </a>
             </span>
+            <p class="about-wrapper__thesis">
+              Bonus reading:
+              <a rel="noreferrer" target="_blank" href="assets/Brendon Pedro_IMBA Thesis_110077443.pdf">
+                my IMBA thesis</a>
+              &#128274; (password protected &mdash; ask me nicely)
+            </p>
           </div>
         </div>
       </div>
@@ -98,26 +98,155 @@
   </section>
   <!-- /END About Section -->
 
+  <!-- **** Now Playing (Current Work) Section **** -->
+  <section id="work">
+    <div class="container">
+      <h2 class="section-title load-hidden">Now Playing</h2>
+      <div class="row work-wrapper">
+        <div class="col-lg-7 col-sm-12">
+          <div class="work-card load-hidden">
+            <div class="work-card__header">
+              <a rel="noreferrer" target="_blank" href="https://www.porkbellycreative.tw/en" aria-label="Pork Belly Creative website">
+                <img class="work-card__logo" src="assets/pbc.png" alt="Pork Belly Creative logo" />
+              </a>
+              <div class="work-card__headings">
+                <h3 class="work-card__title">AI &amp; Engineering Lead</h3>
+                <p class="work-card__org">
+                  <a rel="noreferrer" target="_blank" href="https://www.porkbellycreative.tw/en">Pork Belly
+                    Creative Ltd.</a>
+                  &middot; Taichung, Taiwan &middot; Jun 2026 &ndash; Present
+                </p>
+              </div>
+            </div>
+            <p class="work-card__text">
+              Sole engineer at an IP-licensing startup. I designed, built, and shipped
+              <strong>Cortex</strong> &mdash; PBC's production IP &amp; outreach platform
+              (Next.js, TypeScript, Clerk, Supabase Postgres with RLS, Vercel) &mdash; now in daily use by the team.
+            </p>
+            <p class="work-card__text">
+              Under the hood: an AI fit-assessment engine on the Claude API with versioned output contracts
+              and ~40 automated validator tests, an MCP server with propose-then-human-review writes,
+              Gmail OAuth reconciliation jobs, a computer-vision retail audit pipeline, and PII tokenization
+              for Taiwan PDPA compliance.
+            </p>
+            <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--ink" href="https://www.porkbellycreative.tw/en">
+              Visit PBC &#8599;
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-5 col-sm-12">
+          <div class="work-card work-card--nycu load-hidden">
+            <h3 class="work-card__title">&hellip;while hitting the books</h3>
+            <p class="work-card__text">
+              Concurrently an EECS master's student at
+              <strong>National Yang Ming Chiao Tung University (NYCU)</strong>, Taiwan &mdash;
+              M.S. in Electrical &amp; Computer Engineering with a Computer Science &amp; AI focus.
+              Spring 2026 intake, expected 2028.
+            </p>
+            <p class="work-card__text work-card__text--joke">
+              Day job by day, degree by night. Sleep is a side quest.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /END Now Playing Section -->
+
+  <!-- **** Game Section **** -->
+  <section id="game">
+    <div class="container">
+      <h2 class="section-title load-hidden">The Game</h2>
+      <div class="game-teaser load-hidden">
+        <div class="game-teaser__screen" aria-hidden="true">
+          <svg class="game-teaser__pixels" viewBox="0 0 176 64" role="img" aria-label="Pixel-art scene from Brendon's World: a hero, a gold trophy and an exit door on a brick floor" shape-rendering="crispEdges">
+            <rect x="0" y="0" width="176" height="64" fill="#12081f" />
+            <!-- stars -->
+            <rect x="12" y="8" width="2" height="2" fill="#9a86c8" />
+            <rect x="48" y="14" width="2" height="2" fill="#6b5a9e" />
+            <rect x="86" y="6" width="2" height="2" fill="#9a86c8" />
+            <rect x="130" y="12" width="2" height="2" fill="#6b5a9e" />
+            <rect x="158" y="7" width="2" height="2" fill="#9a86c8" />
+            <!-- brick floor -->
+            <g fill="#8a4a2a">
+              <rect x="0" y="52" width="176" height="12" />
+            </g>
+            <g fill="#b06038">
+              <rect x="0" y="52" width="176" height="2" />
+            </g>
+            <g fill="#5e2e18">
+              <rect x="0" y="57" width="176" height="1" />
+              <rect x="10" y="52" width="1" height="5" />
+              <rect x="34" y="58" width="1" height="5" />
+              <rect x="58" y="52" width="1" height="5" />
+              <rect x="82" y="58" width="1" height="5" />
+              <rect x="106" y="52" width="1" height="5" />
+              <rect x="130" y="58" width="1" height="5" />
+              <rect x="154" y="52" width="1" height="5" />
+            </g>
+            <!-- hero -->
+            <g>
+              <rect x="28" y="30" width="10" height="6" fill="#f0c8a0" />
+              <rect x="28" y="28" width="10" height="3" fill="#2fae2f" />
+              <rect x="30" y="32" width="2" height="2" fill="#1a1a1a" />
+              <rect x="35" y="32" width="2" height="2" fill="#1a1a1a" />
+              <rect x="27" y="36" width="12" height="9" fill="#2fae2f" />
+              <rect x="27" y="45" width="4" height="7" fill="#2456c8" />
+              <rect x="35" y="45" width="4" height="7" fill="#2456c8" />
+            </g>
+            <!-- trophy -->
+            <g>
+              <rect x="86" y="34" width="12" height="8" fill="#ffd23e" />
+              <rect x="84" y="34" width="2" height="5" fill="#ffd23e" />
+              <rect x="98" y="34" width="2" height="5" fill="#ffd23e" />
+              <rect x="89" y="42" width="6" height="4" fill="#c89a1e" />
+              <rect x="86" y="46" width="12" height="3" fill="#ffd23e" />
+              <rect x="88" y="35" width="2" height="3" fill="#fff2b0" />
+            </g>
+            <!-- door -->
+            <g>
+              <rect x="140" y="22" width="20" height="30" fill="#7a4a20" />
+              <rect x="142" y="24" width="16" height="28" fill="#a06630" />
+              <rect x="144" y="26" width="5" height="10" fill="#7a4a20" />
+              <rect x="151" y="26" width="5" height="10" fill="#7a4a20" />
+              <rect x="155" y="38" width="3" height="3" fill="#ffd23e" />
+            </g>
+          </svg>
+        </div>
+        <p class="game-teaser__text">
+          My portfolio, but it's a 1993 DOS platformer. Run, jump, dodge the flames, grab the gold cup
+          &mdash; and collect my actual resume, my day job, and my projects as in-game loot.
+        </p>
+        <p class="game-teaser__blink" aria-hidden="true">INSERT COIN</p>
+        <a class="cta-btn cta-btn--play" href="game/index.html">&#9654; PLAY BRENDON'S WORLD</a>
+        <p class="game-teaser__hint">Keyboard: &larr; &rarr; + Space to jump &middot; On mobile: touch controls</p>
+      </div>
+    </div>
+  </section>
+  <!-- /END Game Section -->
+
   <!-- **** Projects Section **** -->
   <section id="projects">
     <div class="container">
       <div class="project-wrapper">
-        <h2 class="section-title dark-blue-text">Projects</h2>
+        <h2 class="section-title">Projects</h2>
 
         <!-- Notice: each .row is a project -->
         <div class="row">
           <div class="col-lg-4 col-sm-12">
             <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">Robofriends </h3>
+              <h3 class="project-wrapper__text-title">Robofriends</h3>
               <div>
                 <p class="mb-4">
-                  Meet my robofriends🤖
+                  Meet my robofriends&#129302;
                 </p>
               </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero" href="https://brendonpedro.github.io/robofriends/">
+              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--ink"
+                href="https://brendonpedro.github.io/robofriends/">
                 See Live
               </a>
-              <a rel="noreferrer" target="_blank" class="cta-btn text-color-main" href="https://github.com/BrendonPedro/robofriends">
+              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--ink-ghost"
+                href="https://github.com/BrendonPedro/robofriends">
                 Source Code
               </a>
             </div>
@@ -127,7 +256,7 @@
               <a rel="noreferrer" href="https://brendonpedro.github.io/robofriends/" target="_blank">
                 <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
                   class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="./assets/logo.png" />
+                  <img alt="Robofriends project screenshot" class="img-fluid" src="./assets/logo.png" />
                 </div>
               </a>
             </div>
@@ -139,27 +268,29 @@
         <div class="row">
           <div class="col-lg-4 col-sm-12">
             <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">HTML + CSS + JS Website Templates</h3>
+              <h3 class="project-wrapper__text-title">Cape Town Slang Translator</h3>
               <div>
                 <p class="mb-4">
-                  Cool website templates to get you started with HTML, CSS and JavaScript. These templates are designed
-                  for both personal websites or business sites.
+                  Aweh! Translate Kaapse slang into plain English before you get moered by a
+                  misunderstanding. Lekker vibes guaranteed, bru.
                 </p>
               </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero" href="https://www.creative-tim.com/templates/free/?partner=146350">
-                See Live
+              <a class="cta-btn cta-btn--ink" href="projects/slang-translator/index.html">
+                Try It
               </a>
-              <!-- <a rel="noreferrer" target="_blank" class="cta-btn text-color-main" href="#!">
+              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--ink-ghost"
+                href="https://github.com/BrendonPedro/Portfolio/tree/main/src/projects/slang-translator">
                 Source Code
-              </a> -->
+              </a>
             </div>
           </div>
           <div class="col-lg-8 col-sm-12">
             <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="https://www.creative-tim.com/templates/free/?partner=146350" target="_blank">
+              <a href="projects/slang-translator/index.html">
                 <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
                   class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="./assets/earth.png" />
+                  <img alt="Cape Town Slang Translator — pixel art of Table Mountain with a speech bubble saying Aweh"
+                    class="img-fluid" src="./assets/tile-slang.svg" />
                 </div>
               </a>
             </div>
@@ -171,26 +302,29 @@
         <div class="row">
           <div class="col-lg-4 col-sm-12">
             <div class="project-wrapper__text load-hidden">
-              <h3 class="project-wrapper__text-title">The CEMTA Platform</h3>
+              <h3 class="project-wrapper__text-title">Joke Generator 3000</h3>
               <div>
                 <p class="mb-4">
-                  The platform that is going to revolutionize the dining experience. Coming soon!
+                  The machine behind the hero joke. Dad-grade humor on demand &mdash; I'm a developer,
+                  not a jokesmith&hellip; or am I?
                 </p>
               </div>
-              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--hero" href="./assets/Brendon Pedro_CEMTA Research.pdf">
-                Where it Began
+              <a class="cta-btn cta-btn--ink" href="projects/joke-generator/index.html">
+                Get a Joke
               </a>
-              <!-- <a rel="noreferrer" target="_blank" class="cta-btn text-color-main" href="#!">
+              <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--ink-ghost"
+                href="https://github.com/BrendonPedro/Portfolio/tree/main/src/projects/joke-generator">
                 Source Code
-              </a> -->
+              </a>
             </div>
           </div>
           <div class="col-lg-8 col-sm-12">
             <div class="project-wrapper__image load-hidden">
-              <a rel="noreferrer" href="assets/Brendon Pedro_IMBA Thesis_110077443.pdf" target="_blank">
+              <a href="projects/joke-generator/index.html">
                 <div data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.5"
                   class="thumbnail rounded js-tilt">
-                  <img alt="Project Image" class="img-fluid" src="./assets/cemta2.jpeg" />
+                  <img alt="Joke Generator 3000 — pixel art of a retro computer terminal printing HA HA HA"
+                    class="img-fluid" src="./assets/tile-jokes.svg" />
                 </div>
               </a>
             </div>
@@ -207,7 +341,7 @@
     <div class="container">
       <h2 class="section-title">Contact</h2>
       <div class="contact-wrapper load-hidden">
-        <p class="contact-wrapper__text">Get in Touch 😄 </p>
+        <p class="contact-wrapper__text">Get in Touch &#128516;</p>
         <a rel="noreferrer" target="_blank" class="cta-btn cta-btn--resume" href="mailto:bnppedro@gmail.com">Send an
           Email!</a>
       </div>
@@ -218,55 +352,31 @@
   <!-- **** Footer Section **** -->
   <footer class="footer navbar-static-bottom">
     <div class="container">
-      <a rel="noreferrer" href="#top" class="back-to-top">
+      <a rel="noreferrer" href="#top" class="back-to-top" aria-label="Back to top">
         <i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
       </a>
       <div class="social-links">
-        <a rel="noreferrer" href="https://www.instagram.com/brendonpedro/" target="_blank">
-          <i class="fa fa-instagram fa-inverse"></i>
+        <a rel="noreferrer" href="https://www.instagram.com/brendonpedro/" target="_blank" aria-label="Instagram">
+          <i class="fa fa-instagram fa-inverse" aria-hidden="true"></i>
         </a>
-        <a rel="noreferrer" href="https://www.linkedin.com/in/brendon-nicklo-paul-pedro/" target="_blank">
-          <i class="fa fa-linkedin fa-inverse"></i>
+        <a rel="noreferrer" href="https://www.linkedin.com/in/brendon-nicklo-paul-pedro/" target="_blank"
+          aria-label="LinkedIn">
+          <i class="fa fa-linkedin fa-inverse" aria-hidden="true"></i>
         </a>
-        <a rel="noreferrer" href="https://github.com/BrendonPedro" target="_blank">
-          <i class="fa fa-github fa-inverse"></i>
+        <a rel="noreferrer" href="https://github.com/BrendonPedro" target="_blank" aria-label="GitHub">
+          <i class="fa fa-github fa-inverse" aria-hidden="true"></i>
         </a>
       </div>
       <hr />
 
-      <!-- Notice: if you want to give me some credit, it will be huge for me! if not, put your data on it -->
       <p class="footer__text">
         Updated by
         <a rel="noreferrer" href="https://github.com/BrendonPedro" target="_blank">Brendon Pedro</a>
       </p>
       <p class="footer__text">
         Template Credit:
-        <a rel="noreferrer" href="https://github.com/cobiwave" target="_blank">Jacobo Martínez</a>
+        <a rel="noreferrer" href="https://github.com/cobiwave" target="_blank">Jacobo Mart&iacute;nez</a>
       </p>
-
-      <!-- TO DO: remove this entire paragraph once you finish your portfolio -->
-      <!-- <p class="mt-3 pt-3">
-          <a
-            rel="noreferrer"
-            class="github-button"
-            href="https://github.com/cobiwave/simplefolio/fork"
-            data-icon="octicon-repo-forked"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Fork ntkme/github-buttons on GitHub"
-            >Fork</a
-          >
-          <a
-            rel="noreferrer" 
-            class="github-button"
-            href="https://github.com/cobiwave/simplefolio"
-            data-icon="octicon-star"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Star cobiwave/simplefolio on GitHub"
-            >Star</a
-          >
-        </p> -->
     </div>
   </footer>
   <!-- /END Footer Section -->

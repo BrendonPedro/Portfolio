@@ -1,0 +1,69 @@
+#game {
+  @include section-gradient($game-accent, $game-accent-light);
+  color: $ink-color;
+  font-family: 'Sixtyfour', sans-serif;
+  padding: 8rem 0;
+
+  .game-teaser {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3rem;
+    background: #12081f;
+    border: 4px solid $ink-color;
+    border-radius: 1.2rem;
+    box-shadow: 1rem 1rem 0 rgba(20, 24, 31, 0.25);
+    color: #e8e3f7;
+
+    @include respond(phone) {
+      padding: 2rem 1.4rem;
+    }
+
+    &__screen {
+      border: 3px solid #3a2a5e;
+      border-radius: 0.6rem;
+      overflow: hidden;
+      margin-bottom: 2.4rem;
+      background: #12081f;
+    }
+
+    &__pixels {
+      display: block;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+    }
+
+    &__text {
+      font-size: 1.4rem;
+      line-height: 1.9;
+      margin-bottom: 2rem;
+    }
+
+    &__blink {
+      font-size: 1.4rem;
+      letter-spacing: 0.4em;
+      color: #ffd23e;
+      margin-bottom: 2rem;
+      animation: coin-blink 1.2s steps(1) infinite;
+    }
+
+    &__hint {
+      font-size: 1.1rem;
+      color: #9a86c8;
+      margin-top: 2.4rem;
+      margin-bottom: 0;
+    }
+  }
+}
+
+@keyframes coin-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-teaser__blink {
+    animation: none;
+  }
+}
