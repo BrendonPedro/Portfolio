@@ -284,6 +284,8 @@ const audio = {
   setMuted(m) {
     this.muted = m;
     storage.set("reveal-muted", m ? "1" : "0");
+    if (m) music.pause();
+    else music.resume();
   },
 };
 
@@ -305,29 +307,36 @@ const music = {
     if (this.current && this.current !== el) this.current.pause();
     this.current = el;
     el.volume = which === "game" ? 0.45 : 0.55;
-    if (this.enabled && this.touched) el.play().catch(() => {});
     this.sync();
+    if (!this.enabled || audio.muted) return Promise.resolve(false);
+    return el.play().then(
+      () => {
+        this.touched = true;
+        this.sync();
+        return true;
+      },
+      () => false
+    );
   },
   pause() {
     if (this.current) this.current.pause();
     this.sync();
   },
-  toggle() {
-    if (!this.touched) {
-      // first tap on the pill: start, never pause
-      this.touched = true;
-      this.enabled = true;
-      this.play(this.which);
-      return;
-    }
-    this.enabled = !this.enabled;
+  resume() {
     if (this.enabled) this.play(this.which);
-    else this.pause();
+  },
+  toggle() {
+    // first tap on the pill: start, never pause
+    this.enabled = !this.touched || !this.enabled;
+    if (!this.enabled) return this.pause();
+    if (audio.muted) {
+      audio.setMuted(false);
+      syncMute();
+    }
+    this.play(this.which);
   },
   unlock() {
-    if (this.touched) return;
-    this.touched = true;
-    this.play(this.which);
+    return this.touched ? Promise.resolve(true) : this.play(this.which);
   },
   sync() {
     const playing = !!(this.current && !this.current.paused);
@@ -440,7 +449,7 @@ function loadStage(index) {
   $("stage-hint").textContent = s.hint;
   $("stat-stage").textContent = s.bar;
   showPanel("stage");
-  game.state = "intro";
+  setState("intro");
   game.timer = 95;
 }
 
@@ -659,7 +668,7 @@ function updateBalls() {
 function choose(c) {
   c.state = "chosen";
   c.t = 0;
-  game.state = "choosing";
+  setState("choosing");
   game.timer = 80;
   const p = game.player;
   p.vx = 0;
@@ -740,7 +749,7 @@ function update() {
   if (game.state === "intro") {
     if (--game.timer <= 0) {
       showPanel(null);
-      game.state = "playing";
+      setState("playing");
     }
     return;
   }
@@ -1427,6 +1436,11 @@ function pressJump() {
 
 const GAME_STATES = new Set(["intro", "playing", "choosing"]);
 
+function setState(state) {
+  game.state = state;
+  document.body.classList.toggle("is-in-game", GAME_STATES.has(state));
+}
+
 function gameHasKeyboard(e) {
   return (
     GAME_STATES.has(game.state) &&
@@ -1511,7 +1525,7 @@ function syncGuests() {
 }
 
 function openForm(mode) {
-  game.state = "form";
+  setState("form");
   if (mode !== "game") game.played = false;
   $("rsvp-error").textContent = "";
   $("f-sparkles").value = game.played
@@ -1605,12 +1619,12 @@ form.addEventListener("submit", async (e) => {
 $("btn-form-back").addEventListener("click", () => {
   music.play("page");
   showPanel("title");
-  game.state = "title";
+  setState("title");
   game.stage = null;
 });
 
 function showDone(rec) {
-  game.state = "done";
+  setState("done");
   music.play("page");
   const first = rec.name.split(" ")[0];
   const team = rec.guess === "he" ? "team HE \u{1F499}" : "team SHE \u{1FA77}";
@@ -1700,15 +1714,18 @@ syncMute();
 $("btn-music").addEventListener("click", (e) => {
   e.stopPropagation();
   music.toggle();
+  refocusGame();
 });
 function firstGesture(e) {
   // the pill handles itself; any other first gesture starts the song
   if (e.target && e.target.closest && e.target.closest("#btn-music")) return;
-  music.unlock();
-  document.removeEventListener("pointerdown", firstGesture, true);
-  document.removeEventListener("keydown", firstGesture, true);
+  music.unlock().then((ok) => {
+    if (!ok) return;
+    document.removeEventListener("pointerup", firstGesture, true);
+    document.removeEventListener("keydown", firstGesture, true);
+  });
 }
-document.addEventListener("pointerdown", firstGesture, true);
+document.addEventListener("pointerup", firstGesture, true);
 document.addEventListener("keydown", firstGesture, true);
 for (const el of [music.page, music.game]) {
   el.addEventListener("play", () => music.sync());

@@ -965,6 +965,12 @@ body.reveal-page {
   }
 }
 
+@media (pointer: coarse) {
+  body.is-in-game .music {
+    display: none;
+  }
+}
+
 @keyframes bars {
   0%,
   100% {
