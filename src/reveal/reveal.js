@@ -3,7 +3,8 @@
 // Stage 1: jump into the balloon you believe in (your guess).
 // Stage 2: jump into a gift box (your RSVP). Then a tiny form, saved to
 // Netlify Forms so the parents can read every answer in one list.
-// Vanilla JS + <canvas>, vector art drawn in code, soft Web Audio sounds.
+// Vanilla JS + <canvas>, vector art drawn in code, soft Web Audio sounds, plus
+// two MP3 songs: "Baby" on the invitation, "Ain't It Fun" while you play.
 // ============================================================================
 
 "use strict";
@@ -284,6 +285,85 @@ const audio = {
   setMuted(m) {
     this.muted = m;
     storage.set("reveal-muted", m ? "1" : "0");
+    if (m) music.pause();
+    else music.resume();
+  },
+};
+
+// ---- music: "Baby" on the invitation, "Ain't It Fun" while you play ----------
+// Browsers only allow sound after a tap, so the first tap anywhere starts the
+// song; the pill at the bottom right pauses and resumes it.
+
+const music = {
+  page: document.getElementById("music-page"),
+  game: document.getElementById("music-game"),
+  current: null,
+  enabled: true,
+  touched: false, // has a user gesture unlocked audio yet
+  titles: {
+    page: "Baby \u00b7 Fabolous",
+    game: "Ain't It Fun \u00b7 Paramore",
+  },
+  which: "page",
+  primed: false, // has the game song been asked to buffer yet
+  play(which) {
+    this.which = which;
+    const el = which === "game" ? this.game : this.page;
+    if (this.current && this.current !== el) this.current.pause();
+    this.current = el;
+    el.volume = which === "game" ? 0.45 : 0.55;
+    this.sync();
+    if (!this.enabled || audio.muted) return Promise.resolve(false);
+    return el.play().then(
+      () => {
+        this.touched = true;
+        this.sync();
+        if (which === "page") this.prime();
+        return true;
+      },
+      () => false
+    );
+  },
+  pause() {
+    if (this.current) this.current.pause();
+    this.sync();
+  },
+  prime() {
+    if (this.primed) return;
+    this.primed = true;
+    if (this.game.readyState === HTMLMediaElement.HAVE_NOTHING) {
+      this.game.preload = "auto";
+      this.game.load();
+    }
+  },
+  resume() {
+    if (this.enabled) this.play(this.which);
+  },
+  toggle() {
+    // first tap on the pill: start, never pause
+    const playing = !!(this.current && !this.current.paused);
+    this.enabled = !this.touched || !playing;
+    if (!this.enabled) return this.pause();
+    if (audio.muted) {
+      audio.setMuted(false);
+      syncMute();
+    } else {
+      this.play(this.which);
+    }
+  },
+  unlock() {
+    return this.touched ? Promise.resolve(true) : this.play(this.which);
+  },
+  sync() {
+    const playing = !!(this.current && !this.current.paused);
+    const btn = document.getElementById("btn-music");
+    btn.classList.toggle("is-playing", playing);
+    btn.setAttribute("aria-pressed", String(playing));
+    document.getElementById("music-label").textContent = !this.touched
+      ? "tap for music"
+      : playing
+      ? this.titles[this.which]
+      : "music paused";
   },
 };
 
@@ -388,11 +468,12 @@ function loadStage(index) {
   $("stage-hint").textContent = s.hint;
   $("stat-stage").textContent = s.bar;
   showPanel("stage");
-  game.state = "intro";
+  setState("intro");
   game.timer = 95;
 }
 
 function startGame() {
+  music.play("game");
   game.sparkles = 0;
   game.tumbles = 0;
   game.guess = null;
@@ -606,7 +687,7 @@ function updateBalls() {
 function choose(c) {
   c.state = "chosen";
   c.t = 0;
-  game.state = "choosing";
+  setState("choosing");
   game.timer = 80;
   const p = game.player;
   p.vx = 0;
@@ -687,7 +768,7 @@ function update() {
   if (game.state === "intro") {
     if (--game.timer <= 0) {
       showPanel(null);
-      game.state = "playing";
+      setState("playing");
     }
     return;
   }
@@ -1374,6 +1455,11 @@ function pressJump() {
 
 const GAME_STATES = new Set(["intro", "playing", "choosing"]);
 
+function setState(state) {
+  game.state = state;
+  document.body.classList.toggle("is-in-game", GAME_STATES.has(state));
+}
+
 function gameHasKeyboard(e) {
   return (
     GAME_STATES.has(game.state) &&
@@ -1458,7 +1544,7 @@ function syncGuests() {
 }
 
 function openForm(mode) {
-  game.state = "form";
+  setState("form");
   if (mode !== "game") game.played = false;
   $("rsvp-error").textContent = "";
   $("f-sparkles").value = game.played
@@ -1550,13 +1636,15 @@ form.addEventListener("submit", async (e) => {
 });
 
 $("btn-form-back").addEventListener("click", () => {
+  music.play("page");
   showPanel("title");
-  game.state = "title";
+  setState("title");
   game.stage = null;
 });
 
 function showDone(rec) {
-  game.state = "done";
+  setState("done");
+  music.play("page");
   const first = rec.name.split(" ")[0];
   const team = rec.guess === "he" ? "team HE \u{1F499}" : "team SHE \u{1FA77}";
   const wear =
@@ -1641,6 +1729,28 @@ $("btn-mute").addEventListener("click", () => {
   refocusGame();
 });
 syncMute();
+
+$("btn-music").addEventListener("click", (e) => {
+  e.stopPropagation();
+  music.toggle();
+  refocusGame();
+});
+function firstGesture(e) {
+  // the pill handles itself; any other first gesture starts the song
+  if (e.target && e.target.closest && e.target.closest("#btn-music")) return;
+  music.unlock().then((ok) => {
+    if (!ok) return;
+    document.removeEventListener("pointerup", firstGesture, true);
+    document.removeEventListener("keydown", firstGesture, true);
+  });
+}
+document.addEventListener("pointerup", firstGesture, true);
+document.addEventListener("keydown", firstGesture, true);
+for (const el of [music.page, music.game]) {
+  el.addEventListener("play", () => music.sync());
+  el.addEventListener("pause", () => music.sync());
+}
+music.sync();
 
 $("btn-share").addEventListener("click", async () => {
   const text =

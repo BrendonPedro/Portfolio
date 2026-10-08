@@ -24,11 +24,16 @@ No frameworks. That's the point.
   Brendon (Sunday 25 October 2026, 11:00 Taiwan). The invitation artwork is the card,
   with a two-stage canvas platformer embedded in it: jump into the "He" or "She" balloon
   to guess, then into a gift box to RSVP (in person, online via Google Meet, or can't make
-  it). Guests who'd rather not play get a classic RSVP form instead. Answers go to
-  [Netlify Forms](https://docs.netlify.com/forms/setup/) (form `reveal-rsvp`, form
-  detection enabled in the Netlify dashboard, no backend); on localhost the submit is
-  skipped and logged to the console. The page is `noindex` and left out of the sitemap on
-  purpose - it's an invite, not a portfolio piece.
+  it). Guests who'd rather not play get a classic RSVP form instead. The page has music:
+  "Baby" (Fabolous) plays on the invitation and "Ain't It Fun" (Paramore) while the game
+  runs, switching back on the thank-you screen and when leaving the form. Browsers only
+  allow sound after a gesture, so the first tap or key press anywhere starts the song; a
+  floating pill at the bottom right pauses and resumes it and shows the title. The in-game
+  "sound" button silences everything (effects and music); the pill only controls the song.
+  Answers go to [Netlify Forms](https://docs.netlify.com/forms/setup/) (form
+  `reveal-rsvp`, form detection enabled in the Netlify dashboard, no backend); on
+  localhost the submit is skipped and logged to the console. The page is `noindex` and
+  left out of the sitemap on purpose - it's an invite, not a portfolio piece.
 
 ## Development
 
@@ -43,11 +48,14 @@ The Parcel `source` entries (in `package.json`) cover the main page, the game, t
 letter, both mini-projects, and the reveal invitation. The `postbuild` script copies
 `robots.txt` and `sitemap.xml` into `dist/`, plus the reveal's static files (`og.jpg`,
 `share.png`, `event.ics`) into `dist/reveal/` so they keep their plain, unhashed URLs -
-`og:image` has to be an absolute URL for chat-app link previews. The reveal's event facts
-(venue, times, Meet link) live in one `EVENT` object at the top of `src/reveal/reveal.js`;
-`src/reveal/event.ics` and the strip under the artwork in `src/reveal/index.html` repeat
-them, so change all three together. The local `gender_reveal/` inspiration folder is
-gitignored on purpose.
+`og:image` has to be an absolute URL for chat-app link previews. The two songs
+(`src/reveal/baby.mp3` and `aint-it-fun.mp3`, about 6 MB together) are referenced from
+`<audio>` tags, so Parcel bundles them like any other asset - no copy step needed. They
+are the only audio files in the repo; the size is accepted because it's a private invite
+page. The reveal's event facts (venue, times, Meet link) live in one `EVENT` object at
+the top of `src/reveal/reveal.js`; `src/reveal/event.ics` and the strip under the artwork
+in `src/reveal/index.html` repeat them, so change all three together. The local
+`gender_reveal/` inspiration folder is gitignored on purpose.
 
 ## Credits & license
 
