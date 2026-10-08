@@ -327,13 +327,15 @@ const music = {
   },
   toggle() {
     // first tap on the pill: start, never pause
-    this.enabled = !this.touched || !this.enabled;
+    const playing = !!(this.current && !this.current.paused);
+    this.enabled = !this.touched || !playing;
     if (!this.enabled) return this.pause();
     if (audio.muted) {
       audio.setMuted(false);
       syncMute();
+    } else {
+      this.play(this.which);
     }
-    this.play(this.which);
   },
   unlock() {
     return this.touched ? Promise.resolve(true) : this.play(this.which);
