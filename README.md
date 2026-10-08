@@ -21,15 +21,18 @@ No frameworks. That's the point.
 - **😂 Joke Generator 3000** (`/projects/joke-generator/`) - the machine behind the
   hero-section joke. Dad-grade humor on demand.
 - **🎈 He or She?** (`/reveal/`) - a private gender reveal invitation for Portesche &
-  Brendon (Sunday 25 October 2026, 11:00 Taiwan). The invitation artwork is the card,
-  with a two-stage canvas platformer embedded in it: jump into the "He" or "She" balloon
+  Brendon (Sunday 25 October 2026, 11:00 Taiwan). The invitation artwork tops the card,
+  with a two-stage canvas platformer right under it: jump into the "He" or "She" balloon
   to guess, then into a gift box to RSVP (in person, online via Google Meet, or can't make
-  it). Guests who'd rather not play get a classic RSVP form instead. The page has music:
-  "Baby" (Fabolous) plays on the invitation and "Ain't It Fun" (Paramore) while the game
-  runs, switching back on the thank-you screen and when leaving the form. Browsers only
-  allow sound after a gesture, so the first tap or key press anywhere starts the song; a
-  floating pill at the bottom right pauses and resumes it and shows the title. The in-game
-  "sound" button silences everything (effects and music); the pill only controls the song.
+  it). Below the game, clickable cards give the venue (Google Maps), calendar and Meet
+  links. Guests who'd rather not play get a classic RSVP form instead. Desktop players
+  see the keyboard controls once as a short toast when stage 1 starts; touch players get
+  on-screen buttons. The page has music: "Baby" (Fabolous) plays on the invitation and
+  "Ain't It Fun" (Paramore) while the game runs, switching back on the thank-you screen
+  and when leaving the form. Browsers only allow sound after a gesture, so the first tap
+  or key press anywhere starts the song; a floating pill at the bottom right pauses and
+  resumes it and shows the title. The in-game "sound" button silences everything (effects
+  and music); the pill only controls the song.
   Answers go to [Netlify Forms](https://docs.netlify.com/forms/setup/) (form
   `reveal-rsvp`, form detection enabled in the Netlify dashboard, no backend); on
   localhost the submit is skipped and logged to the console. The page is `noindex` and
@@ -53,9 +56,9 @@ letter, both mini-projects, and the reveal invitation. The `postbuild` script co
 `<audio>` tags, so Parcel bundles them like any other asset - no copy step needed. They
 are the only audio files in the repo; the size is accepted because it's a private invite
 page. The reveal's event facts (venue, times, Meet link) live in one `EVENT` object at
-the top of `src/reveal/reveal.js`; `src/reveal/event.ics` and the strip under the artwork
-in `src/reveal/index.html` repeat them, so change all three together. The local
-`gender_reveal/` inspiration folder is gitignored on purpose.
+the top of `src/reveal/reveal.js`; `src/reveal/event.ics` and the clickable details
+cards under the game in `src/reveal/index.html` repeat them, so change all three
+together. The local `gender_reveal/` inspiration folder is gitignored on purpose.
 
 ## Credits & license
 

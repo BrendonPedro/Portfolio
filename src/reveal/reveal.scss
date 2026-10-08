@@ -155,7 +155,7 @@ body.reveal-page {
   }
 }
 
-// the artwork is one JPEG shown in two crops, so the game sits "inside" it
+// the invitation artwork (top crop of the JPEG); the game sits right under it
 .card__art {
   width: 100%;
   background-image: url("invite.jpg");
@@ -165,11 +165,6 @@ body.reveal-page {
   &--top {
     aspect-ratio: 1024 / 1152;
     background-position: top;
-  }
-
-  &--bottom {
-    aspect-ratio: 1024 / 384;
-    background-position: bottom;
   }
 }
 
@@ -375,14 +370,6 @@ body.reveal-page {
     }
   }
 
-  &__help {
-    font-family: $sans;
-    font-size: 1.1rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: $ink-soft;
-  }
-
   &__note {
     font-family: $serif;
     font-style: italic;
@@ -423,16 +410,29 @@ body.reveal-page {
   }
 }
 
-// title panel: show the right control hint
-#help-touch {
-  display: none;
-}
-@media (pointer: coarse) {
-  #help-keys {
-    display: none;
+// title panel: just the kicker, the title, one big button and the classic link
+.panel--title {
+  gap: 1.4rem;
+  // if it ever overflows, keep the top reachable instead of clipping it
+  justify-content: safe center;
+
+  .panel__title {
+    margin-bottom: 0.6rem;
   }
-  #help-touch {
-    display: block;
+
+  // narrow phones: the screen is barely 220px tall, tighten everything
+  @media (max-width: 400px) {
+    gap: 0.8rem;
+    padding: 1.2rem 1.6rem;
+
+    .panel__title {
+      margin-bottom: 0;
+      font-size: 3rem;
+    }
+
+    .btn--lg {
+      padding: 1.2rem 2.6rem;
+    }
   }
 }
 
@@ -461,6 +461,22 @@ body.reveal-page {
 
   &[hidden] {
     display: none;
+  }
+
+  &--lg {
+    font-size: 1.5rem;
+    padding: 1.6rem 3.4rem;
+    gap: 0.9rem;
+
+    .btn__ico {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 1.4rem;
+      padding: 1.5rem 3rem;
+    }
   }
 
   &--primary {
