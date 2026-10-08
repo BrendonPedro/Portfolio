@@ -71,6 +71,7 @@ const COL = {
   gold: "#c6a25c",
   goldDeep: "#a8853f",
   sage: "#9db398",
+  sageLight: "#d9e3d2",
   sageDeep: "#6f8a70",
   ink: "#4a5649",
   bear: "#d2b48c",
@@ -779,15 +780,6 @@ function drawPlatform(p) {
     ellipse(x + p.w / 2, p.y + 8, p.w / 2, 10, COL.cloud);
     ellipse(x + p.w * 0.3, p.y + 4, p.w * 0.22, 12, COL.cloud);
     ellipse(x + p.w * 0.65, p.y + 3, p.w * 0.25, 13, COL.cloud);
-  } else if (p.kind === "pedestal") {
-    rr(x, p.y, p.w, p.h + 10, 6);
-    ctx.fillStyle = COL.slab;
-    ctx.fill();
-    ctx.strokeStyle = COL.slabEdge;
-    ctx.stroke();
-    ctx.fillStyle = COL.gold;
-    ctx.fillRect(x + 6, p.y + 6, p.w - 12, 1.5);
-    heart(x + p.w / 2, p.y + 24, 5, COL.gold);
   }
 }
 
@@ -851,7 +843,7 @@ function drawCheckpoint(c) {
   ctx.quadraticCurveTo(x + 14, GROUND_Y - 50 + wave, x + 26, GROUND_Y - 46);
   ctx.quadraticCurveTo(x + 14, GROUND_Y - 40 + wave, x, GROUND_Y - 36);
   ctx.closePath();
-  ctx.fillStyle = c.reached ? COL.gold : COL.sageLight || "#d9e3d2";
+  ctx.fillStyle = c.reached ? COL.gold : COL.sageLight;
   ctx.fill();
   heart(x + 12, GROUND_Y - 44, 3, c.reached ? "#fff" : COL.sageDeep);
 }
@@ -1196,7 +1188,7 @@ function pressJump() {
 const GAME_STATES = new Set(["intro", "playing", "choosing"]);
 
 function gameHasKeyboard(e) {
-  return GAME_STATES.has(game.state) && !e.target.matches("input, textarea, select, .panel button, .panel a");
+  return GAME_STATES.has(game.state) && !e.target.matches("input, textarea, select, a, button:not(.touch__btn)");
 }
 
 function refocusGame() {

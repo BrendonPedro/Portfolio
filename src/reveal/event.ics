@@ -7,8 +7,10 @@ DTSTAMP:20261008T000000Z
 DTSTART:20261025T030000Z
 DTEND:20261025T060000Z
 SUMMARY:Gender Reveal - Portesche & Brendon
-LOCATION:上山喝咖啡\, No. 1-20\, Nanchang Village\, Hengshan Township\, Hsinchu County 312\, Taiwan
-DESCRIPTION:He or She? Guess and RSVP: https://brendonpedro.netlify.app/reveal/
+LOCATION:上山喝咖啡\, No. 1-20\, Nanchang Village\, Hengshan Township\
+ , Hsinchu County 312\, Taiwan
+DESCRIPTION:He or She? Guess and RSVP: https://brendonpedro.netlify.app/rev
+ eal/
 URL:https://brendonpedro.netlify.app/reveal/
 END:VEVENT
 END:VCALENDAR
