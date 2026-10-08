@@ -1,0 +1,904 @@
+// He or She? - Portesche & Brendon's gender reveal invitation.
+// Palette: warm paper, sage, soft gold. Script + small caps, like the printed card.
+
+$paper: #fcfbf7;
+$paper-deep: #f4f2ea;
+$sage: #9db398;
+$sage-deep: #6f8a70;
+$sage-light: #d9e3d2;
+$sage-pale: #eef2e9;
+$gold: #c6a25c;
+$gold-deep: #a8853f;
+$gold-light: #ecdcb5;
+$ink: #4a5649;
+$ink-soft: #7a877a;
+$he: #c7dbe9;
+$she: #f3d5da;
+
+$script: "Great Vibes", cursive;
+$serif: "Cormorant Garamond", Georgia, serif;
+$sans: "Montserrat", sans-serif;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body.reveal-page {
+  min-height: 100vh;
+  font-family: $serif;
+  font-size: 1.7rem;
+  color: $ink;
+  background: radial-gradient(
+      120% 80% at 50% 0%,
+      #f1f5ec 0%,
+      #e3ebdd 55%,
+      #d6e1cf 100%
+    )
+    fixed;
+  overflow-x: hidden;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// ---- floating background leaves -------------------------------------------
+
+.bg-leaves {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-leaf {
+  position: absolute;
+  width: 4.4rem;
+  opacity: 0.5;
+  animation: drift 14s ease-in-out infinite;
+
+  &--1 {
+    left: 6%;
+    top: 12%;
+    transform: rotate(20deg);
+    animation-delay: -2s;
+  }
+  &--2 {
+    left: 88%;
+    top: 18%;
+    width: 3.4rem;
+    transform: rotate(-35deg);
+    animation-delay: -6s;
+  }
+  &--3 {
+    left: 4%;
+    top: 62%;
+    width: 3rem;
+    transform: rotate(60deg);
+    animation-delay: -9s;
+  }
+  &--4 {
+    left: 92%;
+    top: 70%;
+    transform: rotate(-80deg);
+    animation-delay: -4s;
+  }
+  &--5 {
+    left: 14%;
+    top: 88%;
+    width: 3.6rem;
+    transform: rotate(110deg);
+    animation-delay: -11s;
+  }
+  &--6 {
+    left: 80%;
+    top: 92%;
+    width: 2.8rem;
+    transform: rotate(-150deg);
+    animation-delay: -1s;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0.8rem -1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-leaf {
+    animation: none;
+  }
+}
+
+// ---- the card ---------------------------------------------------------------
+
+.invite {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.4rem 1.6rem 4rem;
+
+  @media (max-width: 600px) {
+    padding: 0 0 3rem;
+  }
+}
+
+.card {
+  background: $paper;
+  border-radius: 1.8rem;
+  box-shadow: 0 3rem 6rem -2rem rgba(70, 90, 70, 0.35),
+    0 0.2rem 0.6rem rgba(70, 90, 70, 0.1);
+  overflow: hidden;
+
+  @media (max-width: 600px) {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+// the artwork is one JPEG shown in two crops, so the game sits "inside" it
+.card__art {
+  width: 100%;
+  background-image: url("invite.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+
+  &--top {
+    aspect-ratio: 1024 / 1152;
+    background-position: top;
+  }
+
+  &--bottom {
+    aspect-ratio: 1024 / 384;
+    background-position: bottom;
+  }
+}
+
+// ---- the screen band --------------------------------------------------------
+
+.screen {
+  padding: 0.4rem 3.2rem 1.2rem;
+  background: $paper;
+
+  @media (max-width: 600px) {
+    padding: 0.4rem 1.2rem 1.2rem;
+  }
+
+  &__ornament {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: $gold;
+    font-size: 1.3rem;
+    margin: 0.6rem 0;
+
+    span {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        $gold-light 20%,
+        $gold 50%,
+        $gold-light 80%,
+        transparent
+      );
+    }
+  }
+
+  &__intro {
+    text-align: center;
+    margin: 0.2rem 0 1.4rem;
+
+    &-script {
+      display: block;
+      font-family: $script;
+      font-size: 4.2rem;
+      line-height: 1.1;
+      color: $gold-deep;
+      background: linear-gradient(
+        100deg,
+        $gold-deep 0%,
+        #e0c382 45%,
+        $gold-deep 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    &-caps {
+      display: block;
+      font-family: $serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: $sage-deep;
+      margin-top: 0.2rem;
+    }
+  }
+
+  &__bezel {
+    position: relative;
+    border-radius: 1.4rem;
+    overflow: hidden;
+    background: #e9efe4;
+    box-shadow: 0 0 0 1px $gold-light, 0 0 0 5px $paper, 0 0 0 6px $sage-light,
+      0 1.6rem 3rem -1.2rem rgba(70, 90, 70, 0.4);
+  }
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0.4rem 0;
+    font-family: $sans;
+    font-size: 1.1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $ink-soft;
+  }
+
+  &__stat {
+    white-space: nowrap;
+  }
+
+  &__mute {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: $sage-deep;
+    background: none;
+    border: 1px solid $sage-light;
+    border-radius: 99rem;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $sage;
+      background: $sage-pale;
+    }
+  }
+}
+
+#game {
+  display: block;
+  width: 100%;
+  aspect-ratio: 640 / 400;
+  height: auto;
+  outline: none;
+  touch-action: none;
+}
+
+.screen__bezel.is-grown #game {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+// ---- panels over the canvas ------------------------------------------------
+
+.panel {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem 2.4rem;
+  background: rgba(252, 251, 247, 0.92);
+  backdrop-filter: blur(6px);
+  z-index: 5;
+  overflow-y: auto;
+
+  &--visible {
+    display: flex;
+  }
+
+  &--clear {
+    background: rgba(252, 251, 247, 0.72);
+    pointer-events: none;
+  }
+
+  &--form {
+    justify-content: flex-start;
+    padding: 1.6rem 2rem;
+  }
+
+  // form + done panels are taller than the screen on phones: let them grow
+  // the bezel instead of scrolling inside it (the canvas stays as backdrop)
+  &--grow.panel--visible {
+    position: relative;
+    min-height: 100%;
+  }
+
+  &__kicker {
+    font-family: $serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: $sage-deep;
+  }
+
+  &__title {
+    font-family: $script;
+    font-size: 4.6rem;
+    line-height: 1.1;
+    color: $gold-deep;
+
+    &--sm {
+      font-size: 3.4rem;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 3.4rem;
+
+      &--sm {
+        font-size: 2.8rem;
+      }
+    }
+  }
+
+  &__text {
+    font-family: $serif;
+    font-size: 1.8rem;
+    line-height: 1.45;
+    max-width: 44rem;
+    color: $ink;
+
+    @media (max-width: 600px) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__help {
+    font-family: $sans;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $ink-soft;
+  }
+
+  &__note {
+    font-family: $serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: $sage-deep;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.4rem;
+  }
+
+  &__link {
+    font-family: $serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: $sage-deep;
+    background: none;
+    border: 0;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-color: $sage-light;
+    cursor: pointer;
+    padding: 0.4rem;
+
+    &:hover,
+    &:focus-visible {
+      color: $gold-deep;
+      text-decoration-color: $gold;
+    }
+  }
+}
+
+// title panel: show the right control hint
+#help-touch {
+  display: none;
+}
+@media (pointer: coarse) {
+  #help-keys {
+    display: none;
+  }
+  #help-touch {
+    display: block;
+  }
+}
+
+// ---- buttons ----------------------------------------------------------------
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: $sans;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.2rem 2.2rem;
+  border-radius: 99rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+
+  &__ico {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  &--primary {
+    color: #fff;
+    background: linear-gradient(135deg, #d4b26e 0%, $gold 50%, $gold-deep 100%);
+    box-shadow: 0 0.8rem 1.6rem -0.6rem rgba(168, 133, 63, 0.7);
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 1.2rem 2rem -0.6rem rgba(168, 133, 63, 0.8);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+
+    &[disabled] {
+      opacity: 0.6;
+      cursor: wait;
+    }
+  }
+
+  &--ghost {
+    color: $sage-deep;
+    border-color: $sage-light;
+    background: transparent;
+
+    &:hover,
+    &:focus-visible {
+      background: $sage-pale;
+      border-color: $sage;
+    }
+  }
+}
+
+// ---- the RSVP form ----------------------------------------------------------
+
+.rsvp {
+  width: 100%;
+  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+
+  &__trap {
+    display: none;
+  }
+
+  &__choices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    align-items: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__summary {
+    font-family: $serif;
+    font-style: italic;
+    font-size: 1.7rem;
+    color: $ink;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  &__error {
+    font-family: $sans;
+    font-size: 1.2rem;
+    color: #b0523f;
+    min-height: 1.4rem;
+
+    &:empty {
+      display: none;
+    }
+  }
+}
+
+.chips {
+  border: 0;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  legend {
+    float: left;
+    width: 100%;
+    font-family: $serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $sage-deep;
+    margin-bottom: 0.4rem;
+  }
+}
+
+.chip {
+  position: relative;
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  span {
+    display: inline-block;
+    font-family: $serif;
+    font-size: 1.7rem;
+    padding: 0.5rem 1.6rem;
+    border-radius: 99rem;
+    border: 1px solid $sage-light;
+    background: #fff;
+    color: $ink;
+    transition: all 0.15s ease;
+  }
+
+  input:checked + span {
+    border-color: $gold;
+    box-shadow: 0 0 0 3px $gold-light;
+  }
+
+  input:focus-visible + span {
+    outline: 2px solid $sage;
+    outline-offset: 2px;
+  }
+
+  &--he input:checked + span {
+    background: $he;
+  }
+  &--she input:checked + span {
+    background: $she;
+  }
+  &--yes input:checked + span {
+    background: $sage-light;
+  }
+  &--online input:checked + span {
+    background: $gold-light;
+  }
+  &--no input:checked + span {
+    background: $paper-deep;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
+  text-align: left;
+
+  &[hidden] {
+    display: none;
+  }
+
+  > span {
+    font-family: $serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $sage-deep;
+
+    small {
+      letter-spacing: 0.1em;
+      text-transform: none;
+      font-size: 1.2rem;
+    }
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: $serif;
+    font-size: 1.7rem;
+    color: $ink;
+    background: #fff;
+    border: 1px solid $sage-light;
+    border-radius: 0.8rem;
+    padding: 0.8rem 1.2rem;
+    width: 100%;
+    resize: vertical;
+
+    &::placeholder {
+      color: #b4bcb2;
+      font-style: italic;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $gold;
+      box-shadow: 0 0 0 3px $gold-light;
+    }
+  }
+}
+
+// ---- toast ------------------------------------------------------------------
+
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 1.2rem;
+  transform: translateX(-50%) translateY(200%);
+  background: rgba(252, 251, 247, 0.96);
+  color: $ink;
+  font-family: $serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid $gold-light;
+  border-radius: 99rem;
+  transition: transform 0.25s ease-out;
+  z-index: 6;
+  max-width: 90%;
+  text-align: center;
+  pointer-events: none;
+
+  &--show {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+// ---- touch controls ---------------------------------------------------------
+
+.touch {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 0 0;
+
+  &__pad {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__btn {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    border: 1px solid $sage-light;
+    background: #fff;
+    color: $sage-deep;
+    font-family: $serif;
+    font-size: 3.6rem;
+    line-height: 1;
+    box-shadow: 0 0.4rem 1rem -0.4rem rgba(70, 90, 70, 0.4);
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &--jump {
+      width: 12rem;
+      border-radius: 99rem;
+      font-family: $sans;
+      font-size: 1.2rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(
+        135deg,
+        #d4b26e 0%,
+        $gold 50%,
+        $gold-deep 100%
+      );
+    }
+
+    &:active,
+    &.is-down {
+      transform: translateY(2px);
+      background: $sage-pale;
+    }
+
+    &--jump:active,
+    &--jump.is-down {
+      background: $gold-deep;
+    }
+  }
+}
+
+@media (pointer: coarse) {
+  .touch {
+    display: flex;
+  }
+}
+
+// ---- clickable details under the artwork -----------------------------------
+
+.actions {
+  padding: 1.6rem 3.2rem 1rem;
+  text-align: center;
+
+  @media (max-width: 600px) {
+    padding: 1.2rem 1.2rem 0.6rem;
+  }
+
+  &__names {
+    font-family: $script;
+    font-size: 4.4rem;
+    line-height: 1.1;
+    color: $gold-deep;
+
+    .amp {
+      color: $sage-deep;
+      font-size: 0.8em;
+    }
+  }
+
+  &__when {
+    font-family: $serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $sage-deep;
+    margin: 0.2rem 0 1.8rem;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1.6rem 1.2rem 1.4rem;
+  border: 1px solid $gold-light;
+  border-radius: 1.2rem;
+  background: #fff;
+  color: $ink;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    border-color: $gold;
+    box-shadow: 0 1.4rem 2.4rem -1.4rem rgba(168, 133, 63, 0.6);
+  }
+
+  &__ico {
+    width: 2.8rem;
+    height: 2.8rem;
+    color: $gold;
+  }
+
+  &__label {
+    font-family: $serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: $sage-deep;
+    margin-top: 0.4rem;
+  }
+
+  &__value {
+    font-family: $serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: $ink;
+  }
+
+  &__sub {
+    font-family: $serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    color: $ink-soft;
+  }
+
+  &__inline {
+    color: $gold-deep;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.card__foot {
+  text-align: center;
+  padding: 1.6rem 2rem 2.8rem;
+
+  &-script {
+    font-family: $script;
+    font-size: 3.2rem;
+    color: $sage-deep;
+  }
+
+  &-note {
+    font-family: $serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: $ink-soft;
+    margin-top: 0.2rem;
+  }
+}
+
+.action--static {
+  cursor: default;
+
+  &:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: $gold-light;
+  }
+
+  .action__value.action__inline {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    text-decoration-color: $gold-light;
+    color: $ink;
+
+    &:hover,
+    &:focus-visible {
+      color: $gold-deep;
+      text-decoration-color: $gold;
+    }
+  }
+}
