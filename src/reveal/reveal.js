@@ -1410,7 +1410,7 @@ $("btn-share").addEventListener("click", async () => {
   }
 });
 
-// ---- calendar links -----------------------------------------------------------------
+// ---- calendar, map and Meet links ---------------------------------------------------
 
 $("link-gcal").href =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
@@ -1443,6 +1443,7 @@ try {
 
 // ---- go -------------------------------------------------------------------------------
 
+// debug hooks for automated testing, exposed on localhost only
 if (DEV) window.__reveal = { game, keys, loadStage, choose, openForm, STAGES };
 
 fitCanvas();

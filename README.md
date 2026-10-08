@@ -20,6 +20,15 @@ No frameworks. That's the point.
   plain English. Aweh.
 - **😂 Joke Generator 3000** (`/projects/joke-generator/`) - the machine behind the
   hero-section joke. Dad-grade humor on demand.
+- **🎈 He or She?** (`/reveal/`) - a private gender reveal invitation for Portesche &
+  Brendon (Sunday 25 October 2026, 11:00 Taiwan). The invitation artwork is the card,
+  with a two-stage canvas platformer embedded in it: jump into the "He" or "She" balloon
+  to guess, then into a gift box to RSVP (in person, online via Google Meet, or can't make
+  it). Guests who'd rather not play get a classic RSVP form instead. Answers go to
+  [Netlify Forms](https://docs.netlify.com/forms/setup/) (form `reveal-rsvp`, form
+  detection enabled in the Netlify dashboard, no backend); on localhost the submit is
+  skipped and logged to the console. The page is `noindex` and left out of the sitemap on
+  purpose - it's an invite, not a portfolio piece.
 
 ## Development
 
@@ -30,8 +39,15 @@ npm start          # dev server
 npm run build      # production build into dist/
 ```
 
-The Parcel `source` entries (in `package.json`) cover the main page, the game, and both
-mini-projects.
+The Parcel `source` entries (in `package.json`) cover the main page, the game, the cover
+letter, both mini-projects, and the reveal invitation. The `postbuild` script copies
+`robots.txt` and `sitemap.xml` into `dist/`, plus the reveal's static files (`og.jpg`,
+`share.png`, `event.ics`) into `dist/reveal/` so they keep their plain, unhashed URLs -
+`og:image` has to be an absolute URL for chat-app link previews. The reveal's event facts
+(venue, times, Meet link) live in one `EVENT` object at the top of `src/reveal/reveal.js`;
+`src/reveal/event.ics` and the strip under the artwork in `src/reveal/index.html` repeat
+them, so change all three together. The local `gender_reveal/` inspiration folder is
+gitignored on purpose.
 
 ## Credits & license
 
