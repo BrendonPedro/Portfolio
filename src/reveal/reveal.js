@@ -769,6 +769,13 @@ function update() {
     if (--game.timer <= 0) {
       showPanel(null);
       setState("playing");
+      // keyboard players get the controls once; touch players see the buttons
+      if (
+        game.stageIndex === 0 &&
+        !window.matchMedia("(pointer: coarse)").matches
+      ) {
+        toast("\u2190 \u2192 to move \u00b7 space to jump", 3200);
+      }
     }
     return;
   }

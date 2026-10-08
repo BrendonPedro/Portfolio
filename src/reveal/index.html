@@ -211,24 +211,18 @@
             ></canvas>
 
             <!-- title -->
-            <div class="panel panel--visible" id="panel-title">
+            <div class="panel panel--visible panel--title" id="panel-title">
               <p class="panel__kicker">a tiny game &middot; two stages</p>
               <p class="panel__title">Guess, then RSVP</p>
-              <p class="panel__text">
-                Help teddy carry the news home. Jump into the balloon you
-                believe in, then into your answer.
-              </p>
-              <button class="btn btn--primary" id="btn-start" type="button">
+              <button
+                class="btn btn--primary btn--lg"
+                id="btn-start"
+                type="button"
+              >
                 <svg class="btn__ico" aria-hidden="true">
                   <use href="#ico-play" /></svg
                 >play &amp; RSVP
               </button>
-              <p class="panel__help" id="help-keys">
-                &larr; &rarr; or A D to move &middot; space or &uarr; to jump
-              </p>
-              <p class="panel__help" id="help-touch">
-                use the buttons under the screen
-              </p>
               <p class="panel__note" id="title-note"></p>
               <button class="panel__link" id="btn-classic" type="button">
                 prefer not to play? RSVP the classic way
@@ -455,13 +449,6 @@
             <span></span>&#9829;<span></span>
           </p>
         </section>
-
-        <!-- the invitation artwork, bottom half: date, time, location, RSVP -->
-        <div
-          class="card__art card__art--bottom"
-          role="img"
-          aria-label="Date: October 25th. Time: 11:00. Location: No. 1-20, Nanchang Village, Hengshan Township, Hsinchu County, 312. RSVP by October 17th."
-        ></div>
 
         <!-- ================= the practical bits, clickable ================= -->
         <section class="actions" aria-label="Event details">
