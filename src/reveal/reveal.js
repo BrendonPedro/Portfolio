@@ -1158,7 +1158,11 @@ function pressJump() {
 const GAME_STATES = new Set(["intro", "playing", "choosing"]);
 
 function gameHasKeyboard(e) {
-  return GAME_STATES.has(game.state) && !e.target.matches("input, textarea, select, button, a");
+  return GAME_STATES.has(game.state) && !e.target.matches("input, textarea, select, .panel button, .panel a");
+}
+
+function refocusGame() {
+  if (GAME_STATES.has(game.state)) canvas.focus({ preventScroll: true });
 }
 
 function releaseKeys() {
@@ -1353,6 +1357,7 @@ function syncMute() {
 $("btn-mute").addEventListener("click", () => {
   audio.setMuted(!audio.muted);
   syncMute();
+  refocusGame();
 });
 syncMute();
 
