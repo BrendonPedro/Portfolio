@@ -19,6 +19,12 @@ const EVENT = {
   startUtc: "20261025T030000Z",
   endUtc: "20261025T060000Z",
   prettyWhen: "Sunday 25 October at 11:00",
+  // online guests (mostly South Africa, UTC+2): the reveal itself
+  meetUrl: "https://meet.google.com/mhs-dycf-dvh",
+  onlineTw: "11:30 to 12:00 Taiwan time",
+  onlineSa: "05:30 to 06:00 South Africa time",
+  onlineStartUtc: "20261025T033000Z",
+  onlineEndUtc: "20261025T040000Z",
 };
 
 const FORM_ENDPOINT = "/reveal/";
@@ -120,24 +126,19 @@ const STAGES = [
     name: "The RSVP",
     hint: "jump into your answer",
     bar: "stage 2 · the rsvp",
-    width: 2240,
+    width: 2400,
     spawn: { x: 60, y: GROUND_Y - 40 },
     platforms: [
       { x: 0, y: GROUND_Y, w: 440, h: 80, kind: "ground" },
       { x: 560, y: GROUND_Y, w: 420, h: 80, kind: "ground" },
       { x: 1120, y: GROUND_Y, w: 460, h: 80, kind: "ground" },
-      { x: 1700, y: GROUND_Y, w: 540, h: 80, kind: "ground" },
+      { x: 1700, y: GROUND_Y, w: 700, h: 80, kind: "ground" },
       { x: 280, y: 270, w: 100, h: 20, kind: "slab" },
       { x: 640, y: 266, w: 110, h: 20, kind: "slab" },
       { x: 820, y: 208, w: 100, h: 20, kind: "slab" },
       { x: 1240, y: 262, w: 120, h: 20, kind: "slab" },
       { x: 1420, y: 204, w: 110, h: 20, kind: "slab" },
       { x: 1000, y: 290, w: 90, h: 18, kind: "cloud", move: { range: 40, speed: 0.013, phase: 1.3 } },
-      // two routes at the finale: walk on to the "yes" pedestal, or take the
-      // two-step climb up to the "no" gift (so neither box blocks the other)
-      { x: 1730, y: 275, w: 80, h: 20, kind: "slab" },
-      { x: 1870, y: 215, w: 120, h: 20, kind: "slab" },
-      { x: 2048, y: 300, w: 96, h: 40, kind: "pedestal" },
     ],
     stars: [
       [330, 232], [500, 236], [690, 228], [870, 168], [1050, 246], [1300, 222], [1475, 164], [1640, 250],
@@ -147,11 +148,14 @@ const STAGES = [
       { x: 1350, y: GROUND_Y - 16, r: 16, x0: 1130, x1: 1570, speed: 1.9, dir: 1 },
     ],
     checkpoints: [{ x: 1140 }, { x: 1720 }],
+    // the gifts hang from balloons at jump height, so you walk under the
+    // ones you do not want and jump into the one you do (y = box bottom)
     choices: [
-      { id: "no", kind: "gift", x: 1940, y: 215, label: "can't make it" },
-      { id: "yes", kind: "gift", x: 2096, y: 300, label: "I'll be there" },
+      { id: "yes", kind: "gift", x: 1900, y: 250, label: "I'll be there" },
+      { id: "online", kind: "gift", x: 2070, y: 250, label: "I'll join online" },
+      { id: "no", kind: "gift", x: 2240, y: 250, label: "can't make it" },
     ],
-    bunny: { x: 2004, y: GROUND_Y },
+    bunny: { x: 1790, y: GROUND_Y },
   },
 ];
 
@@ -473,7 +477,7 @@ function updatePlayer() {
   for (const c of game.choices) {
     const rect = c.kind === "balloon"
       ? { x: c.x - 40, y: c.y - 46, w: 80, h: 92 }
-      : { x: c.x - 34, y: c.y - 58, w: 68, h: 58 };
+      : { x: c.x - 34, y: c.y - 62, w: 68, h: 66 };
     if (c.state === "idle" && rectsOverlap(core, rect)) choose(c);
   }
 
@@ -518,7 +522,7 @@ function choose(c) {
     burst(c.x, c.y - 40, 10, [COL.gold, "#fff"], 2.5, "heart");
     audio.open();
     p.vy = -5;
-    toast(c.id === "yes" ? "see you there!" : "we'll miss you", 2600);
+    toast({ yes: "see you there!", online: "see you on the call!", no: "we'll miss you" }[c.id], 2600);
   }
 }
 
@@ -935,27 +939,62 @@ function drawBalloon(c) {
 
 function drawGift(c) {
   const x = c.x - game.camera;
-  if (x < -80 || x > W + 80) return;
+  if (x < -90 || x > W + 90) return;
   const chosen = c.state === "chosen";
-  const yes = c.id === "yes";
   const bw = 64, bh = 50;
-  const top = c.y - bh;
-  const col = yes ? "#f7f3e8" : "#eef0ea";
-  const ribbon = yes ? COL.sage : "#c9ccc3";
+  const bob = Math.sin(game.time / 24 + c.x) * 4;
+  const top = c.y - bh + bob;
+  const theme = {
+    yes: { box: "#f7f3e8", ribbon: COL.sage, knot: COL.sageDeep, balloon: ["#ffffff", "#dfe8d6", "#b9cbb0"] },
+    online: { box: "#f7f3e8", ribbon: "#d9bf7a", knot: COL.goldDeep, balloon: ["#ffffff", "#f6ecd2", "#e4cd98"] },
+    no: { box: "#eef0ea", ribbon: "#c9ccc3", knot: "#aeb2a8", balloon: ["#ffffff", "#ececec", "#cfd2cc"] },
+  }[c.id];
+
+  // balloon holding the gift up (pops when chosen)
+  const by = top - 92;
+  if (!(chosen && c.t > 6)) {
+    ctx.strokeStyle = COL.goldDeep;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x, by + 40);
+    ctx.lineTo(x, top - 12);
+    ctx.stroke();
+    const g = ctx.createRadialGradient(x - 10, by - 14, 4, x, by, 42);
+    g.addColorStop(0, theme.balloon[0]);
+    g.addColorStop(0.6, theme.balloon[1]);
+    g.addColorStop(1, theme.balloon[2]);
+    ellipse(x, by, 30, 36, g);
+    ctx.strokeStyle = "rgba(198,162,92,0.45)";
+    ctx.beginPath();
+    ctx.ellipse(x, by, 30, 36, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    for (let i = 0; i < 9; i++) {
+      const a = i * 2.4;
+      const r = 8 + (i * 7) % 20;
+      ellipse(x + Math.cos(a) * r * 0.8, by + Math.sin(a) * r, 1.4, 1.4, "rgba(198,162,92,0.5)");
+    }
+    ellipse(x - 11, by - 15, 5, 9, "rgba(255,255,255,0.8)");
+    ctx.beginPath();
+    ctx.moveTo(x - 4, by + 36);
+    ctx.lineTo(x + 4, by + 36);
+    ctx.lineTo(x, by + 41);
+    ctx.closePath();
+    ctx.fillStyle = theme.balloon[2];
+    ctx.fill();
+  }
 
   // box
   ctx.fillStyle = "rgba(70,90,70,0.12)";
   rr(x - bw / 2 + 3, top + 4, bw, bh, 5);
   ctx.fill();
   rr(x - bw / 2, top, bw, bh, 5);
-  ctx.fillStyle = col;
+  ctx.fillStyle = theme.box;
   ctx.fill();
   ctx.strokeStyle = COL.slabEdge;
   ctx.lineWidth = 1;
   ctx.stroke();
-  ctx.fillStyle = ribbon;
+  ctx.fillStyle = theme.ribbon;
   ctx.fillRect(x - 7, top, 14, bh);
-  // question mark on the box
   ctx.font = "bold 22px 'Cormorant Garamond', serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -970,25 +1009,24 @@ function drawGift(c) {
   ctx.translate(x, top - lift);
   ctx.rotate(tilt);
   rr(-bw / 2 - 4, -12, bw + 8, 14, 4);
-  ctx.fillStyle = col;
+  ctx.fillStyle = theme.box;
   ctx.fill();
   ctx.strokeStyle = COL.slabEdge;
   ctx.stroke();
-  ctx.fillStyle = ribbon;
+  ctx.fillStyle = theme.ribbon;
   ctx.fillRect(-7, -12, 14, 14);
-  // bow
-  ellipse(-11, -17, 10, 6, ribbon);
-  ellipse(11, -17, 10, 6, ribbon);
-  ellipse(0, -16, 4, 4, yes ? COL.sageDeep : "#aeb2a8");
+  ellipse(-11, -17, 10, 6, theme.ribbon);
+  ellipse(11, -17, 10, 6, theme.ribbon);
+  ellipse(0, -16, 4, 4, theme.knot);
   ctx.restore();
 
-  // the answer, written above
+  // the answer, written above the balloon
   ctx.font = "italic 500 17px 'Cormorant Garamond', serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
   ctx.fillStyle = COL.ink;
-  ctx.fillText(c.label, x, top - 34 - (chosen ? c.t * 0.5 : 0));
-  heart(x, top - 48 - (chosen ? c.t * 0.5 : 0), 4, yes ? COL.gold : "#c9ccc3");
+  ctx.fillText(c.label, x, by - 48 - (chosen ? c.t * 0.5 : 0));
+  heart(x, by - 62 - (chosen ? c.t * 0.5 : 0), 4, theme.knot);
 }
 
 function drawBunny(b) {
@@ -1246,7 +1284,7 @@ function openForm(mode) {
     $("form-title").textContent = "Lovely. Who are you?";
     $("rsvp-summary").textContent =
       "You're team " + String(game.guess || "?").toUpperCase() +
-      (game.attending === "yes" ? " and you'll be there." : " and you can't make it this time.");
+      { yes: " and you'll be there.", online: " and you'll join us online.", no: " and you can't make it this time." }[game.attending];
   } else {
     choicesBox.hidden = false;
     $("form-kicker").textContent = "no game, no problem";
@@ -1313,20 +1351,25 @@ function showDone(rec) {
   game.state = "done";
   const first = rec.name.split(" ")[0];
   const team = rec.guess === "he" ? "team HE \u{1F499}" : "team SHE \u{1FA77}";
+  const wear = (rec.guess === "he" ? "Wear something blue" : "Wear something pink") +
+    " if you already own it, no need to buy anything.";
+  const found = game.played ? " You found " + game.sparkles + " of " + game.sparkleTotal + " sparkles." : "";
   $("done-title").textContent = "Thank you, " + first + "!";
+  $("btn-map").hidden = rec.attending !== "yes";
+  $("btn-meet").hidden = rec.attending !== "online";
   if (rec.attending === "yes") {
     $("done-kicker").textContent = "you're on the list";
     $("done-text").textContent =
-      "You're " + team + ". See you " + EVENT.prettyWhen + " at " + EVENT.placeName + ". " +
-      (rec.guess === "he" ? "Wear something blue" : "Wear something pink") +
-      " if you already own it, no need to buy anything." +
-      (game.played ? " You found " + game.sparkles + " of " + game.sparkleTotal + " sparkles." : "");
-    $("btn-map").hidden = false;
+      "You're " + team + ". See you " + EVENT.prettyWhen + " at " + EVENT.placeName + ". " + wear + found;
+  } else if (rec.attending === "online") {
+    $("done-kicker").textContent = "see you on the call";
+    $("done-text").textContent =
+      "You're " + team + ". The reveal is on Google Meet on Sunday 25 October, " + EVENT.onlineTw +
+      ", that's " + EVENT.onlineSa + ". " + wear + found;
   } else {
     $("done-kicker").textContent = "we'll miss you";
     $("done-text").textContent =
-      "You're " + team + ". Sorry you can't make it. We'll tell you what the cake said.";
-    $("btn-map").hidden = true;
+      "You're " + team + ". Sorry you can't make it. We'll tell you what the cake said." + found;
   }
   showPanel("done");
   burst(W / 2 + game.camera, 200, 60, [COL.gold, COL.sage, "#fff", COL.sageDeep], 6, "confetti");
@@ -1385,6 +1428,14 @@ $("link-gcal").href =
   "&location=" + encodeURIComponent(EVENT.placeName + ", " + EVENT.placeAddress) +
   "&details=" + encodeURIComponent("He or She? Guess and RSVP: " + EVENT.url);
 $("btn-map").href = $("link-map").href;
+$("btn-meet").href = EVENT.meetUrl;
+$("link-meet").href = EVENT.meetUrl;
+$("link-gcal-online").href =
+  "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+  "&text=" + encodeURIComponent(EVENT.title + " (online)") +
+  "&dates=" + EVENT.onlineStartUtc + "/" + EVENT.onlineEndUtc +
+  "&location=" + encodeURIComponent(EVENT.meetUrl) +
+  "&details=" + encodeURIComponent("The reveal, live on Google Meet: " + EVENT.meetUrl + " (" + EVENT.onlineTw + ", " + EVENT.onlineSa + ")");
 
 // ---- returning guests ---------------------------------------------------------------
 
@@ -1393,7 +1444,8 @@ try {
   if (prev && prev.name) {
     $("title-note").textContent =
       "You already RSVP'd as " + prev.name + " (team " + prev.guess.toUpperCase() + ", " +
-      (prev.attending === "yes" ? "coming" : "not coming") + "). Play again to change it.";
+      ({ yes: "coming", online: "joining online", no: "not coming" }[prev.attending] || prev.attending) +
+      "). Play again to change it.";
   }
 } catch (_) { /* ignore */ }
 

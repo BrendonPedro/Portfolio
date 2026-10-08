@@ -535,6 +535,7 @@ body.reveal-page {
   &--he input:checked + span { background: $he; }
   &--she input:checked + span { background: $she; }
   &--yes input:checked + span { background: $sage-light; }
+  &--online input:checked + span { background: $gold-light; }
   &--no input:checked + span { background: $paper-deep; }
 }
 
@@ -710,7 +711,7 @@ body.reveal-page {
 
   &__row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
 
     @media (max-width: 600px) {

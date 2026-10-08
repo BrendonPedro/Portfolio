@@ -67,6 +67,11 @@
         <rect x="3.5" y="6" width="17" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4" />
         <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.4" />
       </symbol>
+      <symbol id="ico-video" viewBox="0 0 24 24">
+        <rect x="3.5" y="7" width="12" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" />
+        <path d="M15.5 10.5l5-2.5v8l-5-2.5z" fill="none" stroke="currentColor" stroke-width="1.4"
+          stroke-linejoin="round" />
+      </symbol>
       <symbol id="ico-play" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.4" />
         <path d="M10 8.5v7l5.5-3.5z" fill="currentColor" />
@@ -143,6 +148,8 @@
                   <legend>will you come?</legend>
                   <label class="chip chip--yes"><input type="radio" name="attending" value="yes" /><span>yes, I'm
                       in</span></label>
+                  <label class="chip chip--online"><input type="radio" name="attending"
+                      value="online" /><span>online</span></label>
                   <label class="chip chip--no"><input type="radio" name="attending" value="no" /><span>sadly
                       not</span></label>
                 </fieldset>
@@ -188,6 +195,9 @@
               <a class="btn btn--primary" id="btn-map" href="#" target="_blank" rel="noreferrer">
                 <svg class="btn__ico" aria-hidden="true"><use href="#ico-pin" /></svg>open the map
               </a>
+              <a class="btn btn--primary" id="btn-meet" href="#" target="_blank" rel="noreferrer" hidden>
+                <svg class="btn__ico" aria-hidden="true"><use href="#ico-video" /></svg>open Google Meet
+              </a>
               <button class="btn btn--ghost" id="btn-again" type="button">play again</button>
             </div>
             <button class="panel__link" id="btn-share" type="button">send the invite to someone</button>
@@ -221,7 +231,7 @@
       <!-- ================= the practical bits, clickable ================= -->
       <section class="actions" aria-label="Event details">
         <p class="actions__names">Portesche <span class="amp">&amp;</span> Brendon</p>
-        <p class="actions__when">Sunday, 25 October 2026 &middot; 11:00</p>
+        <p class="actions__when">Sunday, 25 October 2026 &middot; 11:00 Taiwan</p>
         <div class="actions__row">
           <a class="action" id="link-map"
             href="https://www.google.com/maps/place/%E4%B8%8A%E5%B1%B1%E5%96%9D%E5%92%96%E5%95%A1/@24.6827424,121.1375315,17z/data=!3m1!4b1!4m6!3m5!1s0x3468479202c86355:0x76cf7dd18cb8e1ff!8m2!3d24.6827424!4d121.1375315!16s%2Fg%2F11r98bw29f!18m1!1e1?entry=ttu"
@@ -240,11 +250,21 @@
             <span class="action__sub">or <a class="action__inline" id="link-gcal" href="#" target="_blank"
                 rel="noreferrer">Google Calendar</a></span>
           </div>
+          <div class="action action--static">
+            <svg class="action__ico" aria-hidden="true"><use href="#ico-video" /></svg>
+            <span class="action__label">online</span>
+            <a class="action__value action__inline" id="link-meet" href="#" target="_blank" rel="noreferrer">join on
+              Google Meet</a>
+            <span class="action__sub">the reveal itself: 11:30 to 12:00 Taiwan &middot; 05:30 to 06:00 South Africa
+              &middot; <a class="action__inline" id="link-gcal-online" href="#" target="_blank" rel="noreferrer">add to
+                Google Calendar</a></span>
+          </div>
           <button class="action" id="btn-classic-2" type="button">
             <svg class="action__ico" aria-hidden="true"><use href="#ico-mail" /></svg>
             <span class="action__label">rsvp</span>
             <span class="action__value">by 17 October</span>
-            <span class="action__sub">play the game above, or tap here to RSVP without playing</span>
+            <span class="action__sub">in person or online &middot; play the game above, or tap here to RSVP without
+              playing</span>
           </button>
         </div>
       </section>
