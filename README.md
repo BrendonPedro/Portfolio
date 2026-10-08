@@ -54,7 +54,7 @@ gitignored on purpose.
 Originally based on the [simplefolio](https://github.com/cobiwave/simplefolio) template
 by [Jacobo Martínez](https://github.com/cobiwave) - thank you! Heavily customized since.
 
-Game art & levels are original work, made lovingly *in the style of* early-90s DOS
+Game art & levels are original work, made lovingly _in the style of_ early-90s DOS
 platformers. No Dangerous Dave assets were harmed (or used).
 
 Licensed under the [MIT License](LICENSE.md).

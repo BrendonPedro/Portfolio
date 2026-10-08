@@ -14,7 +14,8 @@ const EVENT = {
   url: "https://brendonpedro.netlify.app/reveal/",
   title: "Gender Reveal - Portesche & Brendon",
   placeName: "上山喝咖啡",
-  placeAddress: "No. 1-20, Nanchang Village, Hengshan Township, Hsinchu County 312, Taiwan",
+  placeAddress:
+    "No. 1-20, Nanchang Village, Hengshan Township, Hsinchu County 312, Taiwan",
   // 11:00 to 14:00 Taiwan time (UTC+8), written in UTC for calendars
   startUtc: "20261025T030000Z",
   endUtc: "20261025T060000Z",
@@ -33,10 +34,16 @@ const STORE_KEY = "reveal-rsvp";
 
 const storage = {
   get(key) {
-    try { return localStorage.getItem(key); } catch (_) { return null; }
+    try {
+      return localStorage.getItem(key);
+    } catch (_) {
+      return null;
+    }
   },
   set(key, value) {
-    try { localStorage.setItem(key, value); } catch (_) {}
+    try {
+      localStorage.setItem(key, value);
+    } catch (_) {}
   },
 };
 
@@ -106,14 +113,36 @@ const STAGES = [
       { x: 900, y: 212, w: 100, h: 20, kind: "slab" },
       { x: 1350, y: 262, w: 110, h: 20, kind: "slab" },
       { x: 1520, y: 204, w: 110, h: 20, kind: "slab" },
-      { x: 1030, y: 292, w: 96, h: 18, kind: "cloud", move: { range: 50, speed: 0.011, phase: 0 } },
+      {
+        x: 1030,
+        y: 292,
+        w: 96,
+        h: 18,
+        kind: "cloud",
+        move: { range: 50, speed: 0.011, phase: 0 },
+      },
     ],
     stars: [
-      [300, 290], [560, 232], [770, 228], [950, 172], [1078, 246], [1405, 222], [1575, 164], [1770, 250],
+      [300, 290],
+      [560, 232],
+      [770, 228],
+      [950, 172],
+      [1078, 246],
+      [1405, 222],
+      [1575, 164],
+      [1770, 250],
     ],
     balls: [
       { x: 800, y: GROUND_Y - 16, r: 16, x0: 610, x1: 990, speed: 1.3, dir: 1 },
-      { x: 1300, y: GROUND_Y - 16, r: 16, x0: 1190, x1: 1710, speed: 1.7, dir: -1 },
+      {
+        x: 1300,
+        y: GROUND_Y - 16,
+        r: 16,
+        x0: 1190,
+        x1: 1710,
+        speed: 1.7,
+        dir: -1,
+      },
     ],
     checkpoints: [{ x: 1200 }, { x: 1840 }],
     choices: [
@@ -139,21 +168,57 @@ const STAGES = [
       { x: 820, y: 208, w: 100, h: 20, kind: "slab" },
       { x: 1240, y: 262, w: 120, h: 20, kind: "slab" },
       { x: 1420, y: 204, w: 110, h: 20, kind: "slab" },
-      { x: 1000, y: 290, w: 90, h: 18, kind: "cloud", move: { range: 40, speed: 0.013, phase: 1.3 } },
+      {
+        x: 1000,
+        y: 290,
+        w: 90,
+        h: 18,
+        kind: "cloud",
+        move: { range: 40, speed: 0.013, phase: 1.3 },
+      },
     ],
     stars: [
-      [330, 232], [500, 236], [690, 228], [870, 168], [1050, 246], [1300, 222], [1475, 164], [1640, 250],
+      [330, 232],
+      [500, 236],
+      [690, 228],
+      [870, 168],
+      [1050, 246],
+      [1300, 222],
+      [1475, 164],
+      [1640, 250],
     ],
     balls: [
-      { x: 760, y: GROUND_Y - 16, r: 16, x0: 570, x1: 970, speed: 1.5, dir: -1 },
-      { x: 1350, y: GROUND_Y - 16, r: 16, x0: 1130, x1: 1570, speed: 1.9, dir: 1 },
+      {
+        x: 760,
+        y: GROUND_Y - 16,
+        r: 16,
+        x0: 570,
+        x1: 970,
+        speed: 1.5,
+        dir: -1,
+      },
+      {
+        x: 1350,
+        y: GROUND_Y - 16,
+        r: 16,
+        x0: 1130,
+        x1: 1570,
+        speed: 1.9,
+        dir: 1,
+      },
     ],
     checkpoints: [{ x: 1140 }, { x: 1720 }],
     // the gifts hang from balloons at jump height, so you walk under the
     // ones you do not want and jump into the one you do (y = box bottom)
     choices: [
       { id: "yes", kind: "gift", x: 1900, y: 250, label: "I'll be there" },
-      { id: "online", kind: "gift", x: 2070, y: 250, label: "I'll join online" },
+      {
+        id: "online",
+        kind: "gift",
+        x: 2070,
+        y: 250,
+        label: "I'll join online",
+      },
       { id: "no", kind: "gift", x: 2240, y: 250, label: "can't make it" },
     ],
     bunny: { x: 1790, y: GROUND_Y },
@@ -191,17 +256,31 @@ const audio = {
   chord(notes, step = 0.09, dur = 0.22, type = "sine", vol = 0.05) {
     notes.forEach((f, i) => this.tone(f, dur, type, vol, null, i * step));
   },
-  jump() { this.tone(360, 0.12, "triangle", 0.045, 620); },
-  star() { this.chord([1318, 1760], 0.05, 0.16, "sine", 0.04); },
-  bonk() { this.tone(170, 0.16, "square", 0.03, 90); },
-  whoops() { this.tone(420, 0.3, "triangle", 0.04, 180); },
+  jump() {
+    this.tone(360, 0.12, "triangle", 0.045, 620);
+  },
+  star() {
+    this.chord([1318, 1760], 0.05, 0.16, "sine", 0.04);
+  },
+  bonk() {
+    this.tone(170, 0.16, "square", 0.03, 90);
+  },
+  whoops() {
+    this.tone(420, 0.3, "triangle", 0.04, 180);
+  },
   pop() {
     this.tone(700, 0.08, "square", 0.04, 220);
     this.chord([1046, 1318, 1568], 0.06, 0.3, "sine", 0.04);
   },
-  open() { this.chord([523, 659, 784, 1046], 0.08, 0.35, "triangle", 0.045); },
-  checkpoint() { this.chord([880, 1174], 0.07, 0.2, "sine", 0.035); },
-  success() { this.chord([523, 659, 784, 1046, 1318, 1568], 0.1, 0.5, "sine", 0.05); },
+  open() {
+    this.chord([523, 659, 784, 1046], 0.08, 0.35, "triangle", 0.045);
+  },
+  checkpoint() {
+    this.chord([880, 1174], 0.07, 0.2, "sine", 0.035);
+  },
+  success() {
+    this.chord([523, 659, 784, 1046, 1318, 1568], 0.1, 0.5, "sine", 0.05);
+  },
   setMuted(m) {
     this.muted = m;
     storage.set("reveal-muted", m ? "1" : "0");
@@ -226,7 +305,9 @@ function showPanel(name) {
     el.classList.toggle("panel--visible", key === name);
   }
   const grown = name && panels[name].classList.contains("panel--grow");
-  document.querySelector(".screen__bezel").classList.toggle("is-grown", !!grown);
+  document
+    .querySelector(".screen__bezel")
+    .classList.toggle("is-grown", !!grown);
 }
 
 let toastTimer = null;
@@ -272,7 +353,12 @@ function loadStage(index) {
   game.stageIndex = index;
   game.stage = s;
   game.platforms = s.platforms.map((p) => ({ ...p, baseX: p.x, dx: 0 }));
-  game.stars = s.stars.map(([x, y]) => ({ x, y, taken: false, seed: Math.random() * 6.28 }));
+  game.stars = s.stars.map(([x, y]) => ({
+    x,
+    y,
+    taken: false,
+    seed: Math.random() * 6.28,
+  }));
   game.balls = s.balls.map((b) => ({ ...b, rot: 0 }));
   game.choices = s.choices.map((c) => ({ ...c, state: "idle", t: 0 }));
   game.checkpoints = s.checkpoints.map((c) => ({ ...c, reached: false }));
@@ -319,13 +405,16 @@ function startGame() {
 }
 
 function updateSparkleStat() {
-  $("stat-sparkles").textContent = "✦ " + game.sparkles + " / " + game.sparkleTotal;
+  $("stat-sparkles").textContent =
+    "✦ " + game.sparkles + " / " + game.sparkleTotal;
 }
 
 // ---- physics ------------------------------------------------------------------
 
 function rectsOverlap(a, b) {
-  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+  return (
+    a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y
+  );
 }
 
 function solidAt(rect, prevBottom) {
@@ -351,13 +440,19 @@ function respawn() {
   p.invuln = 40;
   game.tumbles++;
   audio.whoops();
-  toast(["whoops, try again", "teddy bounced back", "almost! one more go"][game.tumbles % 3]);
+  toast(
+    ["whoops, try again", "teddy bounced back", "almost! one more go"][
+      game.tumbles % 3
+    ]
+  );
 }
 
 function updatePlatforms() {
   for (const p of game.platforms) {
     if (!p.move) continue;
-    const nx = p.baseX + Math.sin(game.time * p.move.speed + p.move.phase) * p.move.range;
+    const nx =
+      p.baseX +
+      Math.sin(game.time * p.move.speed + p.move.phase) * p.move.range;
     p.dx = nx - p.x;
     p.x = nx;
   }
@@ -476,9 +571,10 @@ function updatePlayer() {
 
   // choices
   for (const c of game.choices) {
-    const rect = c.kind === "balloon"
-      ? { x: c.x - 40, y: c.y - 46, w: 80, h: 92 }
-      : { x: c.x - 34, y: c.y - 62, w: 68, h: 66 };
+    const rect =
+      c.kind === "balloon"
+        ? { x: c.x - 40, y: c.y - 46, w: 80, h: 92 }
+        : { x: c.x - 34, y: c.y - 62, w: 68, h: 66 };
     if (c.state === "idle" && rectsOverlap(core, rect)) choose(c);
   }
 
@@ -495,8 +591,14 @@ function updatePlayer() {
 function updateBalls() {
   for (const b of game.balls) {
     b.x += b.dir * b.speed;
-    if (b.x - b.r < b.x0) { b.x = b.x0 + b.r; b.dir = 1; }
-    if (b.x + b.r > b.x1) { b.x = b.x1 - b.r; b.dir = -1; }
+    if (b.x - b.r < b.x0) {
+      b.x = b.x0 + b.r;
+      b.dir = 1;
+    }
+    if (b.x + b.r > b.x1) {
+      b.x = b.x1 - b.r;
+      b.dir = -1;
+    }
     b.rot += (b.dir * b.speed) / b.r;
   }
 }
@@ -510,12 +612,18 @@ function choose(c) {
   p.vx = 0;
   if (c.kind === "balloon") {
     game.guess = c.id;
-    const cols = c.id === "he" ? [COL.heDeep, "#fff", COL.gold] : [COL.sheDeep, "#fff", COL.gold];
+    const cols =
+      c.id === "he"
+        ? [COL.heDeep, "#fff", COL.gold]
+        : [COL.sheDeep, "#fff", COL.gold];
     burst(c.x, c.y, 46, cols, 5, "confetti");
     burst(c.x, c.y, 14, ["#fff", COL.gold], 3, "heart");
     audio.pop();
     p.vy = -6;
-    toast(c.id === "he" ? "you're team HE \u{1F499}" : "you're team SHE \u{1FA77}", 2600);
+    toast(
+      c.id === "he" ? "you're team HE \u{1F499}" : "you're team SHE \u{1FA77}",
+      2600
+    );
   } else {
     game.attending = c.id;
     const cols = [COL.sage, COL.gold, "#fff", COL.sageDeep];
@@ -523,7 +631,14 @@ function choose(c) {
     burst(c.x, c.y - 40, 10, [COL.gold, "#fff"], 2.5, "heart");
     audio.open();
     p.vy = -5;
-    toast({ yes: "see you there!", online: "see you on the call!", no: "we'll miss you" }[c.id], 2600);
+    toast(
+      {
+        yes: "see you there!",
+        online: "see you on the call!",
+        no: "we'll miss you",
+      }[c.id],
+      2600
+    );
   }
 }
 
@@ -534,13 +649,15 @@ function burst(x, y, n, colors, speed, shape) {
     const a = Math.random() * Math.PI * 2;
     const v = speed * (0.4 + Math.random() * 0.8);
     game.particles.push({
-      x, y,
+      x,
+      y,
       vx: Math.cos(a) * v,
       vy: Math.sin(a) * v - speed * 0.6,
       life: 50 + Math.random() * 40,
       max: 90,
       color: colors[Math.floor(Math.random() * colors.length)],
-      size: shape === "confetti" ? 3 + Math.random() * 4 : 2 + Math.random() * 3,
+      size:
+        shape === "confetti" ? 3 + Math.random() * 4 : 2 + Math.random() * 3,
       rot: Math.random() * 6.28,
       spin: (Math.random() - 0.5) * 0.3,
       shape,
@@ -587,7 +704,11 @@ function update() {
     p.vy = Math.min(p.vy + GRAVITY * 0.6, 4);
     p.y += p.vy;
     const hit = solidAt(p, p.y + p.h - p.vy);
-    if (hit && p.vy > 0) { p.y = hit.y - p.h; p.vy = 0; p.onGround = true; }
+    if (hit && p.vy > 0) {
+      p.y = hit.y - p.h;
+      p.vy = 0;
+      p.onGround = true;
+    }
     for (const c of game.choices) if (c.state === "chosen") c.t++;
     if (--game.timer <= 0) {
       if (game.stageIndex === 0) loadStage(1);
@@ -619,15 +740,35 @@ function rr(x, y, w, h, r) {
 function ellipse(x, y, rx, ry, fill, stroke) {
   ctx.beginPath();
   ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
-  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
-  if (stroke) { ctx.strokeStyle = stroke; ctx.stroke(); }
+  if (fill) {
+    ctx.fillStyle = fill;
+    ctx.fill();
+  }
+  if (stroke) {
+    ctx.strokeStyle = stroke;
+    ctx.stroke();
+  }
 }
 
 function heart(x, y, s, fill) {
   ctx.beginPath();
   ctx.moveTo(x, y + s * 0.9);
-  ctx.bezierCurveTo(x - s * 1.4, y - s * 0.2, x - s * 0.6, y - s * 1.1, x, y - s * 0.35);
-  ctx.bezierCurveTo(x + s * 0.6, y - s * 1.1, x + s * 1.4, y - s * 0.2, x, y + s * 0.9);
+  ctx.bezierCurveTo(
+    x - s * 1.4,
+    y - s * 0.2,
+    x - s * 0.6,
+    y - s * 1.1,
+    x,
+    y - s * 0.35
+  );
+  ctx.bezierCurveTo(
+    x + s * 0.6,
+    y - s * 1.1,
+    x + s * 1.4,
+    y - s * 0.2,
+    x,
+    y + s * 0.9
+  );
   ctx.fillStyle = fill;
   ctx.fill();
 }
@@ -713,7 +854,10 @@ function drawBackground() {
     const off = game.camera * L.par;
     for (let x = -20; x <= W + 20; x += 8) {
       const wx = x + off;
-      const y = L.base - Math.abs(Math.sin(wx / L.len * Math.PI)) * L.amp - Math.sin(wx / 53) * 4;
+      const y =
+        L.base -
+        Math.abs(Math.sin((wx / L.len) * Math.PI)) * L.amp -
+        Math.sin(wx / 53) * 4;
       ctx.lineTo(x, y);
     }
     ctx.lineTo(W, H);
@@ -724,7 +868,12 @@ function drawBackground() {
   // drifting clouds
   ctx.fillStyle = "rgba(255,255,255,0.85)";
   for (let i = 0; i < 6; i++) {
-    const cx = ((i * 230 + game.time * 0.15 - game.camera * 0.25) % (W + 200) + W + 200) % (W + 200) - 100;
+    const cx =
+      ((((i * 230 + game.time * 0.15 - game.camera * 0.25) % (W + 200)) +
+        W +
+        200) %
+        (W + 200)) -
+      100;
     const cy = 50 + OY * 0.5 + (i % 3) * 38;
     ellipse(cx, cy, 34, 12, "rgba(255,255,255,0.85)");
     ellipse(cx - 16, cy + 2, 20, 10, "rgba(255,255,255,0.85)");
@@ -733,7 +882,7 @@ function drawBackground() {
 
   // gold dust
   for (let i = 0; i < 18; i++) {
-    const sx = ((i * 137 + game.time * 0.2 - game.camera * 0.6) % W + W) % W;
+    const sx = (((i * 137 + game.time * 0.2 - game.camera * 0.6) % W) + W) % W;
     const sy = 40 + ((i * 97) % 260) + Math.sin(game.time / 40 + i) * 6;
     const a = 0.25 + 0.25 * Math.sin(game.time / 15 + i * 2);
     star4(sx, sy, 2.2, "rgba(198,162,92," + a.toFixed(2) + ")");
@@ -825,7 +974,13 @@ function drawBall(b) {
   ctx.stroke();
   heart(0, 1, 4, COL.gold);
   ctx.restore();
-  ellipse(x - b.r * 0.35, b.y - b.r * 0.4, b.r * 0.28, b.r * 0.18, "rgba(255,255,255,0.7)");
+  ellipse(
+    x - b.r * 0.35,
+    b.y - b.r * 0.4,
+    b.r * 0.28,
+    b.r * 0.18,
+    "rgba(255,255,255,0.7)"
+  );
 }
 
 function drawCheckpoint(c) {
@@ -878,7 +1033,12 @@ function drawBalloon(c) {
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(x, GROUND_Y);
-  ctx.quadraticCurveTo(x + sway * 0.4, (GROUND_Y + by) / 2, bx, by + 50 * scale);
+  ctx.quadraticCurveTo(
+    x + sway * 0.4,
+    (GROUND_Y + by) / 2,
+    bx,
+    by + 50 * scale
+  );
   ctx.stroke();
 
   ctx.save();
@@ -898,7 +1058,7 @@ function drawBalloon(c) {
   // gold dots like the invitation balloons
   for (let i = 0; i < 14; i++) {
     const a = i * 2.4;
-    const r = 10 + (i * 7) % 28;
+    const r = 10 + ((i * 7) % 28);
     const dx = Math.cos(a) * r * 0.8;
     const dy = Math.sin(a) * r;
     ellipse(dx, dy, 1.6, 1.6, "rgba(198,162,92,0.55)");
@@ -933,13 +1093,29 @@ function drawGift(c) {
   const x = c.x - game.camera;
   if (x < -90 || x > W + 90) return;
   const chosen = c.state === "chosen";
-  const bw = 64, bh = 50;
+  const bw = 64,
+    bh = 50;
   const bob = Math.sin(game.time / 24 + c.x) * 4;
   const top = c.y - bh + bob;
   const theme = {
-    yes: { box: "#f7f3e8", ribbon: COL.sage, knot: COL.sageDeep, balloon: ["#ffffff", "#dfe8d6", "#b9cbb0"] },
-    online: { box: "#f7f3e8", ribbon: "#d9bf7a", knot: COL.goldDeep, balloon: ["#ffffff", "#f6ecd2", "#e4cd98"] },
-    no: { box: "#eef0ea", ribbon: "#c9ccc3", knot: "#aeb2a8", balloon: ["#ffffff", "#ececec", "#cfd2cc"] },
+    yes: {
+      box: "#f7f3e8",
+      ribbon: COL.sage,
+      knot: COL.sageDeep,
+      balloon: ["#ffffff", "#dfe8d6", "#b9cbb0"],
+    },
+    online: {
+      box: "#f7f3e8",
+      ribbon: "#d9bf7a",
+      knot: COL.goldDeep,
+      balloon: ["#ffffff", "#f6ecd2", "#e4cd98"],
+    },
+    no: {
+      box: "#eef0ea",
+      ribbon: "#c9ccc3",
+      knot: "#aeb2a8",
+      balloon: ["#ffffff", "#ececec", "#cfd2cc"],
+    },
   }[c.id];
 
   // balloon holding the gift up (pops when chosen)
@@ -962,8 +1138,14 @@ function drawGift(c) {
     ctx.stroke();
     for (let i = 0; i < 9; i++) {
       const a = i * 2.4;
-      const r = 8 + (i * 7) % 20;
-      ellipse(x + Math.cos(a) * r * 0.8, by + Math.sin(a) * r, 1.4, 1.4, "rgba(198,162,92,0.5)");
+      const r = 8 + ((i * 7) % 20);
+      ellipse(
+        x + Math.cos(a) * r * 0.8,
+        by + Math.sin(a) * r,
+        1.4,
+        1.4,
+        "rgba(198,162,92,0.5)"
+      );
     }
     ellipse(x - 11, by - 15, 5, 9, "rgba(255,255,255,0.8)");
     ctx.beginPath();
@@ -1148,7 +1330,8 @@ function render() {
   for (const p of game.platforms) drawPlatform(p);
   for (const c of game.checkpoints) drawCheckpoint(c);
   for (const s of game.stars) drawStar(s);
-  for (const c of game.choices) (c.kind === "balloon" ? drawBalloon : drawGift)(c);
+  for (const c of game.choices)
+    (c.kind === "balloon" ? drawBalloon : drawGift)(c);
   if (game.stage.bunny) drawBunny(game.stage.bunny);
   for (const b of game.balls) drawBall(b);
   drawBear();
@@ -1175,9 +1358,13 @@ function frame(ts) {
 // ---- input --------------------------------------------------------------------------
 
 const KEYMAP = {
-  ArrowLeft: "left", KeyA: "left",
-  ArrowRight: "right", KeyD: "right",
-  Space: "jump", ArrowUp: "jump", KeyW: "jump",
+  ArrowLeft: "left",
+  KeyA: "left",
+  ArrowRight: "right",
+  KeyD: "right",
+  Space: "jump",
+  ArrowUp: "jump",
+  KeyW: "jump",
 };
 
 function pressJump() {
@@ -1188,7 +1375,10 @@ function pressJump() {
 const GAME_STATES = new Set(["intro", "playing", "choosing"]);
 
 function gameHasKeyboard(e) {
-  return GAME_STATES.has(game.state) && !e.target.matches("input, textarea, select, a, button:not(.touch__btn)");
+  return (
+    GAME_STATES.has(game.state) &&
+    !e.target.matches("input, textarea, select, a, button:not(.touch__btn)")
+  );
 }
 
 function refocusGame() {
@@ -1206,8 +1396,9 @@ document.addEventListener("keydown", (e) => {
   const k = KEYMAP[e.code];
   if (!k || !gameHasKeyboard(e)) return;
   e.preventDefault();
-  if (k === "jump") { if (!keys.jump) pressJump(); }
-  else keys[k] = true;
+  if (k === "jump") {
+    if (!keys.jump) pressJump();
+  } else keys[k] = true;
 });
 document.addEventListener("keyup", (e) => {
   const k = KEYMAP[e.code];
@@ -1246,7 +1437,9 @@ canvas.addEventListener("pointerdown", (e) => {
   e.preventDefault();
   pressJump();
 });
-canvas.addEventListener("pointerup", () => { keys.jump = false; });
+canvas.addEventListener("pointerup", () => {
+  keys.jump = false;
+});
 
 // ---- the form ---------------------------------------------------------------------
 
@@ -1254,7 +1447,9 @@ const form = $("rsvp-form");
 const choicesBox = $("rsvp-choices");
 
 function setRadio(name, value) {
-  form.querySelectorAll('input[name="' + name + '"]').forEach((r) => { r.checked = r.value === value; });
+  form.querySelectorAll('input[name="' + name + '"]').forEach((r) => {
+    r.checked = r.value === value;
+  });
 }
 
 function syncGuests() {
@@ -1266,7 +1461,9 @@ function openForm(mode) {
   game.state = "form";
   if (mode !== "game") game.played = false;
   $("rsvp-error").textContent = "";
-  $("f-sparkles").value = game.played ? game.sparkles + "/" + game.sparkleTotal : "";
+  $("f-sparkles").value = game.played
+    ? game.sparkles + "/" + game.sparkleTotal
+    : "";
   $("f-played").value = game.played ? "yes" : "no";
   if (mode === "game") {
     setRadio("guess", game.guess);
@@ -1275,8 +1472,13 @@ function openForm(mode) {
     $("form-kicker").textContent = "stage 2 complete";
     $("form-title").textContent = "Lovely. Who are you?";
     $("rsvp-summary").textContent =
-      "You're team " + String(game.guess || "?").toUpperCase() +
-      { yes: " and you'll be there.", online: " and you'll join us online.", no: " and you can't make it this time." }[game.attending];
+      "You're team " +
+      String(game.guess || "?").toUpperCase() +
+      {
+        yes: " and you'll be there.",
+        online: " and you'll join us online.",
+        no: " and you can't make it this time.",
+      }[game.attending];
   } else {
     choicesBox.hidden = false;
     $("form-kicker").textContent = "no game, no problem";
@@ -1299,7 +1501,11 @@ form.addEventListener("submit", async (e) => {
   const name = $("f-name").value.trim();
   if (!guess) return (err.textContent = "pick a guess first: he or she?");
   if (!attending) return (err.textContent = "let us know if you can come.");
-  if (!name) { err.textContent = "we'd love to know your name."; $("f-name").focus(); return; }
+  if (!name) {
+    err.textContent = "we'd love to know your name.";
+    $("f-name").focus();
+    return;
+  }
 
   const data = new FormData(form);
   if (attending.value !== "yes") data.set("guests", "0");
@@ -1311,7 +1517,10 @@ form.addEventListener("submit", async (e) => {
   btn.textContent = "sending…";
   try {
     if (DEV) {
-      console.info("[reveal] dev mode, would submit:", Object.fromEntries(data));
+      console.info(
+        "[reveal] dev mode, would submit:",
+        Object.fromEntries(data)
+      );
       await new Promise((r) => setTimeout(r, 500));
     } else {
       const res = await fetch(FORM_ENDPOINT, {
@@ -1321,12 +1530,19 @@ form.addEventListener("submit", async (e) => {
       });
       if (!res.ok) throw new Error("HTTP " + res.status);
     }
-    const record = { name, guess: guess.value, attending: attending.value, guests: data.get("guests"), at: Date.now() };
+    const record = {
+      name,
+      guess: guess.value,
+      attending: attending.value,
+      guests: data.get("guests"),
+      at: Date.now(),
+    };
     storage.set(STORE_KEY, JSON.stringify(record));
     showDone(record);
   } catch (ex) {
     console.error(ex);
-    err.textContent = "that didn't send. please try again, or message Brendon directly.";
+    err.textContent =
+      "that didn't send. please try again, or message Brendon directly.";
   } finally {
     btn.disabled = false;
     btn.textContent = "send my RSVP";
@@ -1343,28 +1559,56 @@ function showDone(rec) {
   game.state = "done";
   const first = rec.name.split(" ")[0];
   const team = rec.guess === "he" ? "team HE \u{1F499}" : "team SHE \u{1FA77}";
-  const wear = (rec.guess === "he" ? "Wear something blue" : "Wear something pink") +
+  const wear =
+    (rec.guess === "he" ? "Wear something blue" : "Wear something pink") +
     " if you already own it, no need to buy anything.";
-  const found = game.played ? " You found " + game.sparkles + " of " + game.sparkleTotal + " sparkles." : "";
+  const found = game.played
+    ? " You found " + game.sparkles + " of " + game.sparkleTotal + " sparkles."
+    : "";
   $("done-title").textContent = "Thank you, " + first + "!";
   $("btn-map").hidden = rec.attending !== "yes";
   $("btn-meet").hidden = rec.attending !== "online";
   if (rec.attending === "yes") {
     $("done-kicker").textContent = "you're on the list";
     $("done-text").textContent =
-      "You're " + team + ". See you " + EVENT.prettyWhen + " at " + EVENT.placeName + ". " + wear + found;
+      "You're " +
+      team +
+      ". See you " +
+      EVENT.prettyWhen +
+      " at " +
+      EVENT.placeName +
+      ". " +
+      wear +
+      found;
   } else if (rec.attending === "online") {
     $("done-kicker").textContent = "see you on the call";
     $("done-text").textContent =
-      "You're " + team + ". The reveal is on Google Meet on Sunday 25 October, " + EVENT.onlineTw +
-      ", that's " + EVENT.onlineSa + ". " + wear + found;
+      "You're " +
+      team +
+      ". The reveal is on Google Meet on Sunday 25 October, " +
+      EVENT.onlineTw +
+      ", that's " +
+      EVENT.onlineSa +
+      ". " +
+      wear +
+      found;
   } else {
     $("done-kicker").textContent = "we'll miss you";
     $("done-text").textContent =
-      "You're " + team + ". Sorry you can't make it. We'll tell you what the cake said." + found;
+      "You're " +
+      team +
+      ". Sorry you can't make it. We'll tell you what the cake said." +
+      found;
   }
   showPanel("done");
-  burst(W / 2 + game.camera, 200, 60, [COL.gold, COL.sage, "#fff", COL.sageDeep], 6, "confetti");
+  burst(
+    W / 2 + game.camera,
+    200,
+    60,
+    [COL.gold, COL.sage, "#fff", COL.sageDeep],
+    6,
+    "confetti"
+  );
   audio.success();
 }
 
@@ -1382,7 +1626,9 @@ for (const id of ["btn-classic", "btn-classic-2"]) {
   $(id).addEventListener("click", () => {
     game.stage = null;
     openForm("classic");
-    document.querySelector(".screen__bezel").scrollIntoView({ behavior: "smooth", block: "center" });
+    document
+      .querySelector(".screen__bezel")
+      .scrollIntoView({ behavior: "smooth", block: "center" });
   });
 }
 
@@ -1397,7 +1643,10 @@ $("btn-mute").addEventListener("click", () => {
 syncMute();
 
 $("btn-share").addEventListener("click", async () => {
-  const text = "He or She? Portesche & Brendon's gender reveal, " + EVENT.prettyWhen + ". Guess and RSVP here:";
+  const text =
+    "He or She? Portesche & Brendon's gender reveal, " +
+    EVENT.prettyWhen +
+    ". Guess and RSVP here:";
   try {
     if (navigator.share) {
       await navigator.share({ title: EVENT.title, text, url: EVENT.url });
@@ -1414,20 +1663,40 @@ $("btn-share").addEventListener("click", async () => {
 
 $("link-gcal").href =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-  "&text=" + encodeURIComponent(EVENT.title) +
-  "&dates=" + EVENT.startUtc + "/" + EVENT.endUtc +
+  "&text=" +
+  encodeURIComponent(EVENT.title) +
+  "&dates=" +
+  EVENT.startUtc +
+  "/" +
+  EVENT.endUtc +
   "&ctz=Asia/Taipei" +
-  "&location=" + encodeURIComponent(EVENT.placeName + ", " + EVENT.placeAddress) +
-  "&details=" + encodeURIComponent("He or She? Guess and RSVP: " + EVENT.url);
+  "&location=" +
+  encodeURIComponent(EVENT.placeName + ", " + EVENT.placeAddress) +
+  "&details=" +
+  encodeURIComponent("He or She? Guess and RSVP: " + EVENT.url);
 $("btn-map").href = $("link-map").href;
 $("btn-meet").href = EVENT.meetUrl;
 $("link-meet").href = EVENT.meetUrl;
 $("link-gcal-online").href =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-  "&text=" + encodeURIComponent(EVENT.title + " (online)") +
-  "&dates=" + EVENT.onlineStartUtc + "/" + EVENT.onlineEndUtc +
-  "&location=" + encodeURIComponent(EVENT.meetUrl) +
-  "&details=" + encodeURIComponent("The reveal, live on Google Meet: " + EVENT.meetUrl + " (" + EVENT.onlineTw + ", " + EVENT.onlineSa + ")");
+  "&text=" +
+  encodeURIComponent(EVENT.title + " (online)") +
+  "&dates=" +
+  EVENT.onlineStartUtc +
+  "/" +
+  EVENT.onlineEndUtc +
+  "&location=" +
+  encodeURIComponent(EVENT.meetUrl) +
+  "&details=" +
+  encodeURIComponent(
+    "The reveal, live on Google Meet: " +
+      EVENT.meetUrl +
+      " (" +
+      EVENT.onlineTw +
+      ", " +
+      EVENT.onlineSa +
+      ")"
+  );
 
 // ---- returning guests ---------------------------------------------------------------
 
@@ -1435,11 +1704,19 @@ try {
   const prev = JSON.parse(storage.get(STORE_KEY) || "null");
   if (prev && prev.name) {
     $("title-note").textContent =
-      "You already RSVP'd as " + prev.name + " (team " + prev.guess.toUpperCase() + ", " +
-      ({ yes: "coming", online: "joining online", no: "not coming" }[prev.attending] || prev.attending) +
+      "You already RSVP'd as " +
+      prev.name +
+      " (team " +
+      prev.guess.toUpperCase() +
+      ", " +
+      ({ yes: "coming", online: "joining online", no: "not coming" }[
+        prev.attending
+      ] || prev.attending) +
       "). Play again to change it.";
   }
-} catch (_) { /* ignore */ }
+} catch (_) {
+  /* ignore */
+}
 
 // ---- go -------------------------------------------------------------------------------
 
@@ -1448,6 +1725,13 @@ if (DEV) window.__reveal = { game, keys, loadStage, choose, openForm, STAGES };
 
 fitCanvas();
 window.addEventListener("resize", fitCanvas);
-document.addEventListener("visibilitychange", () => { last = performance.now(); acc = 0; });
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => render());
-requestAnimationFrame((ts) => { last = ts; frame(ts); });
+document.addEventListener("visibilitychange", () => {
+  last = performance.now();
+  acc = 0;
+});
+if (document.fonts && document.fonts.ready)
+  document.fonts.ready.then(() => render());
+requestAnimationFrame((ts) => {
+  last = ts;
+  frame(ts);
+});

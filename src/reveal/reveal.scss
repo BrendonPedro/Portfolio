@@ -35,7 +35,13 @@ body.reveal-page {
   font-family: $serif;
   font-size: 1.7rem;
   color: $ink;
-  background: radial-gradient(120% 80% at 50% 0%, #f1f5ec 0%, #e3ebdd 55%, #d6e1cf 100%) fixed;
+  background: radial-gradient(
+      120% 80% at 50% 0%,
+      #f1f5ec 0%,
+      #e3ebdd 55%,
+      #d6e1cf 100%
+    )
+    fixed;
   overflow-x: hidden;
 }
 
@@ -64,21 +70,62 @@ body.reveal-page {
   opacity: 0.5;
   animation: drift 14s ease-in-out infinite;
 
-  &--1 { left: 6%; top: 12%; transform: rotate(20deg); animation-delay: -2s; }
-  &--2 { left: 88%; top: 18%; width: 3.4rem; transform: rotate(-35deg); animation-delay: -6s; }
-  &--3 { left: 4%; top: 62%; width: 3rem; transform: rotate(60deg); animation-delay: -9s; }
-  &--4 { left: 92%; top: 70%; transform: rotate(-80deg); animation-delay: -4s; }
-  &--5 { left: 14%; top: 88%; width: 3.6rem; transform: rotate(110deg); animation-delay: -11s; }
-  &--6 { left: 80%; top: 92%; width: 2.8rem; transform: rotate(-150deg); animation-delay: -1s; }
+  &--1 {
+    left: 6%;
+    top: 12%;
+    transform: rotate(20deg);
+    animation-delay: -2s;
+  }
+  &--2 {
+    left: 88%;
+    top: 18%;
+    width: 3.4rem;
+    transform: rotate(-35deg);
+    animation-delay: -6s;
+  }
+  &--3 {
+    left: 4%;
+    top: 62%;
+    width: 3rem;
+    transform: rotate(60deg);
+    animation-delay: -9s;
+  }
+  &--4 {
+    left: 92%;
+    top: 70%;
+    transform: rotate(-80deg);
+    animation-delay: -4s;
+  }
+  &--5 {
+    left: 14%;
+    top: 88%;
+    width: 3.6rem;
+    transform: rotate(110deg);
+    animation-delay: -11s;
+  }
+  &--6 {
+    left: 80%;
+    top: 92%;
+    width: 2.8rem;
+    transform: rotate(-150deg);
+    animation-delay: -1s;
+  }
 }
 
 @keyframes drift {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0.8rem -1.6rem; }
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0.8rem -1.6rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-leaf { animation: none; }
+  .bg-leaf {
+    animation: none;
+  }
 }
 
 // ---- the card ---------------------------------------------------------------
@@ -98,7 +145,8 @@ body.reveal-page {
 .card {
   background: $paper;
   border-radius: 1.8rem;
-  box-shadow: 0 3rem 6rem -2rem rgba(70, 90, 70, 0.35), 0 0.2rem 0.6rem rgba(70, 90, 70, 0.1);
+  box-shadow: 0 3rem 6rem -2rem rgba(70, 90, 70, 0.35),
+    0 0.2rem 0.6rem rgba(70, 90, 70, 0.1);
   overflow: hidden;
 
   @media (max-width: 600px) {
@@ -146,7 +194,14 @@ body.reveal-page {
     span {
       flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, transparent, $gold-light 20%, $gold 50%, $gold-light 80%, transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        $gold-light 20%,
+        $gold 50%,
+        $gold-light 80%,
+        transparent
+      );
     }
   }
 
@@ -160,7 +215,12 @@ body.reveal-page {
       font-size: 4.2rem;
       line-height: 1.1;
       color: $gold-deep;
-      background: linear-gradient(100deg, $gold-deep 0%, #e0c382 45%, $gold-deep 100%);
+      background: linear-gradient(
+        100deg,
+        $gold-deep 0%,
+        #e0c382 45%,
+        $gold-deep 100%
+      );
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -364,10 +424,16 @@ body.reveal-page {
 }
 
 // title panel: show the right control hint
-#help-touch { display: none; }
+#help-touch {
+  display: none;
+}
 @media (pointer: coarse) {
-  #help-keys { display: none; }
-  #help-touch { display: block; }
+  #help-keys {
+    display: none;
+  }
+  #help-touch {
+    display: block;
+  }
 }
 
 // ---- buttons ----------------------------------------------------------------
@@ -532,11 +598,21 @@ body.reveal-page {
     outline-offset: 2px;
   }
 
-  &--he input:checked + span { background: $he; }
-  &--she input:checked + span { background: $she; }
-  &--yes input:checked + span { background: $sage-light; }
-  &--online input:checked + span { background: $gold-light; }
-  &--no input:checked + span { background: $paper-deep; }
+  &--he input:checked + span {
+    background: $he;
+  }
+  &--she input:checked + span {
+    background: $she;
+  }
+  &--yes input:checked + span {
+    background: $sage-light;
+  }
+  &--online input:checked + span {
+    background: $gold-light;
+  }
+  &--no input:checked + span {
+    background: $paper-deep;
+  }
 }
 
 .field {
@@ -656,7 +732,12 @@ body.reveal-page {
       font-weight: 600;
       color: #fff;
       border-color: transparent;
-      background: linear-gradient(135deg, #d4b26e 0%, $gold 50%, $gold-deep 100%);
+      background: linear-gradient(
+        135deg,
+        #d4b26e 0%,
+        $gold 50%,
+        $gold-deep 100%
+      );
     }
 
     &:active,
@@ -733,7 +814,8 @@ body.reveal-page {
   font: inherit;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease;
 
   &:hover,
   &:focus-visible {
