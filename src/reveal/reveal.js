@@ -3,7 +3,8 @@
 // Stage 1: jump into the balloon you believe in (your guess).
 // Stage 2: jump into a gift box (your RSVP). Then a tiny form, saved to
 // Netlify Forms so the parents can read every answer in one list.
-// Vanilla JS + <canvas>, vector art drawn in code, soft Web Audio sounds.
+// Vanilla JS + <canvas>, vector art drawn in code, soft Web Audio sounds, plus
+// two MP3 songs: "Baby" on the invitation, "Ain't It Fun" while you play.
 // ============================================================================
 
 "use strict";
