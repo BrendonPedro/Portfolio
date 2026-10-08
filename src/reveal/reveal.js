@@ -301,6 +301,7 @@ const music = {
   touched: false, // has a user gesture unlocked audio yet
   titles: { page: "Baby \u00b7 Fabolous", game: "Ain't It Fun \u00b7 Paramore" },
   which: "page",
+  primed: false, // has the game song been asked to buffer yet
   play(which) {
     this.which = which;
     const el = which === "game" ? this.game : this.page;
@@ -313,6 +314,7 @@ const music = {
       () => {
         this.touched = true;
         this.sync();
+        if (which === "page") this.prime();
         return true;
       },
       () => false
@@ -321,6 +323,14 @@ const music = {
   pause() {
     if (this.current) this.current.pause();
     this.sync();
+  },
+  prime() {
+    if (this.primed) return;
+    this.primed = true;
+    if (this.game.readyState === HTMLMediaElement.HAVE_NOTHING) {
+      this.game.preload = "auto";
+      this.game.load();
+    }
   },
   resume() {
     if (this.enabled) this.play(this.which);
@@ -344,6 +354,7 @@ const music = {
     const playing = !!(this.current && !this.current.paused);
     const btn = document.getElementById("btn-music");
     btn.classList.toggle("is-playing", playing);
+    btn.setAttribute("aria-pressed", String(playing));
     document.getElementById("music-label").textContent = !this.touched
       ? "tap for music"
       : playing ? this.titles[this.which] : "music paused";
