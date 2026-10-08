@@ -287,6 +287,58 @@ const audio = {
   },
 };
 
+// ---- music: "Baby" on the invitation, "Ain't It Fun" while you play ----------
+// Browsers only allow sound after a tap, so the first tap anywhere starts the
+// song; the pill at the bottom right pauses and resumes it.
+
+const music = {
+  page: document.getElementById("music-page"),
+  game: document.getElementById("music-game"),
+  current: null,
+  enabled: true,
+  touched: false, // has a user gesture unlocked audio yet
+  titles: { page: "Baby \u00b7 Fabolous", game: "Ain't It Fun \u00b7 Paramore" },
+  which: "page",
+  play(which) {
+    this.which = which;
+    const el = which === "game" ? this.game : this.page;
+    if (this.current && this.current !== el) this.current.pause();
+    this.current = el;
+    el.volume = which === "game" ? 0.45 : 0.55;
+    if (this.enabled && this.touched) el.play().catch(() => {});
+    this.sync();
+  },
+  pause() {
+    if (this.current) this.current.pause();
+    this.sync();
+  },
+  toggle() {
+    if (!this.touched) {
+      // first tap on the pill: start, never pause
+      this.touched = true;
+      this.enabled = true;
+      this.play(this.which);
+      return;
+    }
+    this.enabled = !this.enabled;
+    if (this.enabled) this.play(this.which);
+    else this.pause();
+  },
+  unlock() {
+    if (this.touched) return;
+    this.touched = true;
+    this.play(this.which);
+  },
+  sync() {
+    const playing = !!(this.current && !this.current.paused);
+    const btn = document.getElementById("btn-music");
+    btn.classList.toggle("is-playing", playing);
+    document.getElementById("music-label").textContent = !this.touched
+      ? "tap for music"
+      : playing ? this.titles[this.which] : "music paused";
+  },
+};
+
 // ---- DOM ----------------------------------------------------------------------
 
 const $ = (id) => document.getElementById(id);
@@ -393,6 +445,7 @@ function loadStage(index) {
 }
 
 function startGame() {
+  music.play("game");
   game.sparkles = 0;
   game.tumbles = 0;
   game.guess = null;
@@ -1550,6 +1603,7 @@ form.addEventListener("submit", async (e) => {
 });
 
 $("btn-form-back").addEventListener("click", () => {
+  music.play("page");
   showPanel("title");
   game.state = "title";
   game.stage = null;
@@ -1557,6 +1611,7 @@ $("btn-form-back").addEventListener("click", () => {
 
 function showDone(rec) {
   game.state = "done";
+  music.play("page");
   const first = rec.name.split(" ")[0];
   const team = rec.guess === "he" ? "team HE \u{1F499}" : "team SHE \u{1FA77}";
   const wear =
@@ -1641,6 +1696,25 @@ $("btn-mute").addEventListener("click", () => {
   refocusGame();
 });
 syncMute();
+
+$("btn-music").addEventListener("click", (e) => {
+  e.stopPropagation();
+  music.toggle();
+});
+function firstGesture(e) {
+  // the pill handles itself; any other first gesture starts the song
+  if (e.target && e.target.closest && e.target.closest("#btn-music")) return;
+  music.unlock();
+  document.removeEventListener("pointerdown", firstGesture, true);
+  document.removeEventListener("keydown", firstGesture, true);
+}
+document.addEventListener("pointerdown", firstGesture, true);
+document.addEventListener("keydown", firstGesture, true);
+for (const el of [music.page, music.game]) {
+  el.addEventListener("play", () => music.sync());
+  el.addEventListener("pause", () => music.sync());
+}
+music.sync();
 
 $("btn-share").addEventListener("click", async () => {
   const text =
