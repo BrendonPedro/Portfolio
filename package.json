@@ -14,7 +14,7 @@
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
-    "postbuild": "cp src/robots.txt src/sitemap.xml dist/ && mkdir -p dist/reveal && cp src/reveal/og.png src/reveal/share.png dist/reveal/"
+    "postbuild": "cp src/robots.txt src/sitemap.xml dist/ && mkdir -p dist/reveal && cp src/reveal/og.jpg src/reveal/share.png src/reveal/event.ics dist/reveal/"
   },
   "repository": {
     "type": "git",

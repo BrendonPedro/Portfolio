@@ -25,6 +25,15 @@ const FORM_ENDPOINT = "/reveal/";
 const DEV = ["localhost", "127.0.0.1"].includes(location.hostname);
 const STORE_KEY = "reveal-rsvp";
 
+const storage = {
+  get(key) {
+    try { return localStorage.getItem(key); } catch (_) { return null; }
+  },
+  set(key, value) {
+    try { localStorage.setItem(key, value); } catch (_) {}
+  },
+};
+
 // ---- game constants ---------------------------------------------------------
 
 const W = 640;
@@ -150,7 +159,7 @@ const STAGES = [
 
 const audio = {
   ctx: null,
-  muted: localStorage.getItem("reveal-muted") === "1",
+  muted: storage.get("reveal-muted") === "1",
   ensure() {
     if (!this.ctx) {
       const AC = window.AudioContext || window.webkitAudioContext;
@@ -190,7 +199,7 @@ const audio = {
   success() { this.chord([523, 659, 784, 1046, 1318, 1568], 0.1, 0.5, "sine", 0.05); },
   setMuted(m) {
     this.muted = m;
-    localStorage.setItem("reveal-muted", m ? "1" : "0");
+    storage.set("reveal-muted", m ? "1" : "0");
   },
 };
 
@@ -1146,10 +1155,22 @@ function pressJump() {
   keys.jumpPressed = JUMP_BUFFER;
 }
 
+const GAME_STATES = new Set(["intro", "playing", "choosing"]);
+
+function gameHasKeyboard(e) {
+  return GAME_STATES.has(game.state) && !e.target.matches("input, textarea, select, button, a");
+}
+
+function releaseKeys() {
+  keys.left = false;
+  keys.right = false;
+  keys.jump = false;
+  keys.jumpPressed = 0;
+}
+
 document.addEventListener("keydown", (e) => {
-  if (e.target.matches("input, textarea, select")) return;
   const k = KEYMAP[e.code];
-  if (!k) return;
+  if (!k || !gameHasKeyboard(e)) return;
   e.preventDefault();
   if (k === "jump") { if (!keys.jump) pressJump(); }
   else keys[k] = true;
@@ -1159,6 +1180,7 @@ document.addEventListener("keyup", (e) => {
   if (!k) return;
   keys[k] = false;
 });
+window.addEventListener("blur", releaseKeys);
 
 function bindTouch(id, key) {
   const el = $(id);
@@ -1208,6 +1230,7 @@ function syncGuests() {
 
 function openForm(mode) {
   game.state = "form";
+  if (mode !== "game") game.played = false;
   $("rsvp-error").textContent = "";
   $("f-sparkles").value = game.played ? game.sparkles + "/" + game.sparkleTotal : "";
   $("f-played").value = game.played ? "yes" : "no";
@@ -1221,7 +1244,6 @@ function openForm(mode) {
       "You're team " + String(game.guess || "?").toUpperCase() +
       (game.attending === "yes" ? " and you'll be there." : " and you can't make it this time.");
   } else {
-    game.played = false;
     choicesBox.hidden = false;
     $("form-kicker").textContent = "no game, no problem";
     $("form-title").textContent = "Your guess, your RSVP";
@@ -1266,7 +1288,7 @@ form.addEventListener("submit", async (e) => {
       if (!res.ok) throw new Error("HTTP " + res.status);
     }
     const record = { name, guess: guess.value, attending: attending.value, guests: data.get("guests"), at: Date.now() };
-    localStorage.setItem(STORE_KEY, JSON.stringify(record));
+    storage.set(STORE_KEY, JSON.stringify(record));
     showDone(record);
   } catch (ex) {
     console.error(ex);
@@ -1350,27 +1372,6 @@ $("btn-share").addEventListener("click", async () => {
 
 // ---- calendar links -----------------------------------------------------------------
 
-function buildIcs() {
-  const lines = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Portesche and Brendon//Gender Reveal//EN",
-    "BEGIN:VEVENT",
-    "UID:reveal-20261025@brendonpedro.netlify.app",
-    "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""),
-    "DTSTART:" + EVENT.startUtc,
-    "DTEND:" + EVENT.endUtc,
-    "SUMMARY:" + EVENT.title,
-    "LOCATION:" + EVENT.placeName + "\\, " + EVENT.placeAddress,
-    "DESCRIPTION:He or She? Guess and RSVP: " + EVENT.url,
-    "URL:" + EVENT.url,
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ];
-  return "data:text/calendar;charset=utf-8," + encodeURIComponent(lines.join("\r\n"));
-}
-
-$("link-calendar").href = buildIcs();
 $("link-gcal").href =
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
   "&text=" + encodeURIComponent(EVENT.title) +
@@ -1383,7 +1384,7 @@ $("btn-map").href = $("link-map").href;
 // ---- returning guests ---------------------------------------------------------------
 
 try {
-  const prev = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+  const prev = JSON.parse(storage.get(STORE_KEY) || "null");
   if (prev && prev.name) {
     $("title-note").textContent =
       "You already RSVP'd as " + prev.name + " (team " + prev.guess.toUpperCase() + ", " +

@@ -18,7 +18,7 @@
   <meta property="og:title" content="He or She? Portesche &amp; Brendon's gender reveal" />
   <meta property="og:description"
     content="Sunday 25 October 2026, 11:00 at 上山喝咖啡, Hsinchu. Play the tiny game, make your guess and RSVP." />
-  <meta property="og:image" content="https://brendonpedro.netlify.app/reveal/og.png" />
+  <meta property="og:image" content="https://brendonpedro.netlify.app/reveal/og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -197,10 +197,10 @@
         </div>
 
         <!-- touch controls: only shown on touch devices -->
-        <div class="touch" id="touch" aria-hidden="true">
+        <div class="touch" id="touch">
           <div class="touch__pad">
-            <button class="touch__btn" id="touch-left" type="button">&#8249;</button>
-            <button class="touch__btn" id="touch-right" type="button">&#8250;</button>
+            <button class="touch__btn" id="touch-left" type="button" aria-label="Move left">&#8249;</button>
+            <button class="touch__btn" id="touch-right" type="button" aria-label="Move right">&#8250;</button>
           </div>
           <button class="touch__btn touch__btn--jump" id="touch-jump" type="button">jump</button>
         </div>
@@ -235,7 +235,7 @@
           <div class="action action--static">
             <svg class="action__ico" aria-hidden="true"><use href="#ico-cal" /></svg>
             <span class="action__label">calendar</span>
-            <a class="action__value action__inline" id="link-calendar" href="#"
+            <a class="action__value action__inline" id="link-calendar" href="event.ics"
               download="gender-reveal-portesche-brendon.ics">add to calendar</a>
             <span class="action__sub">or <a class="action__inline" id="link-gcal" href="#" target="_blank"
                 rel="noreferrer">Google Calendar</a></span>
