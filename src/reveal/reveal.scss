@@ -413,9 +413,26 @@ body.reveal-page {
 // title panel: just the kicker, the title, one big button and the classic link
 .panel--title {
   gap: 1.4rem;
+  // if it ever overflows, keep the top reachable instead of clipping it
+  justify-content: safe center;
 
   .panel__title {
     margin-bottom: 0.6rem;
+  }
+
+  // narrow phones: the screen is barely 220px tall, tighten everything
+  @media (max-width: 400px) {
+    gap: 0.8rem;
+    padding: 1.2rem 1.6rem;
+
+    .panel__title {
+      margin-bottom: 0;
+      font-size: 3rem;
+    }
+
+    .btn--lg {
+      padding: 1.2rem 2.6rem;
+    }
   }
 }
 
