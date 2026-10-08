@@ -300,7 +300,10 @@ const music = {
   current: null,
   enabled: true,
   touched: false, // has a user gesture unlocked audio yet
-  titles: { page: "Baby \u00b7 Fabolous", game: "Ain't It Fun \u00b7 Paramore" },
+  titles: {
+    page: "Baby \u00b7 Fabolous",
+    game: "Ain't It Fun \u00b7 Paramore",
+  },
   which: "page",
   primed: false, // has the game song been asked to buffer yet
   play(which) {
@@ -358,7 +361,9 @@ const music = {
     btn.setAttribute("aria-pressed", String(playing));
     document.getElementById("music-label").textContent = !this.touched
       ? "tap for music"
-      : playing ? this.titles[this.which] : "music paused";
+      : playing
+      ? this.titles[this.which]
+      : "music paused";
   },
 };
 
