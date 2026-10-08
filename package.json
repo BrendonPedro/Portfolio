@@ -8,12 +8,13 @@
     "src/game/index.html",
     "src/cover-letter/index.html",
     "src/projects/slang-translator/index.html",
-    "src/projects/joke-generator/index.html"
+    "src/projects/joke-generator/index.html",
+    "src/reveal/index.html"
   ],
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
-    "postbuild": "cp src/robots.txt src/sitemap.xml dist/"
+    "postbuild": "cp src/robots.txt src/sitemap.xml dist/ && mkdir -p dist/reveal && cp src/reveal/og.png src/reveal/share.png dist/reveal/"
   },
   "repository": {
     "type": "git",
