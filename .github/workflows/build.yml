@@ -1,0 +1,26 @@
+# Build check for pushes and pull requests to main.
+# Hosting and deploys are handled by Netlify (see netlify.toml).
+name: Portfolio
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check-out repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install project
+        run: npm ci
+
+      - name: Build project
+        run: npm run build

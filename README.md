@@ -47,6 +47,10 @@ npm start          # dev server
 npm run build      # production build into dist/
 ```
 
+GitHub Actions (`.github/workflows/build.yml`) runs `npm ci` and `npm run build` on
+pushes and pull requests to `main` as a build check only - deploys are Netlify's job
+(`netlify.toml`).
+
 The Parcel `source` entries (in `package.json`) cover the main page, the game, the cover
 letter, both mini-projects, and the reveal invitation. The `postbuild` script copies
 `robots.txt` and `sitemap.xml` into `dist/`, plus the reveal's static files (`og.jpg`,
